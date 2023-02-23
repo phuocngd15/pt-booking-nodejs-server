@@ -15,16 +15,6 @@ const swaggerOptions = {
                 url: 'http://localhost:3000'
             }
         ],
-        tags: [
-            {
-                name: 'Users',
-                description: 'Endpoints for managing users',
-            },
-            {
-                name: 'Products',
-                description: 'Endpoints for managing products',
-            },
-        ],
     },
     apis: glob.sync('./**/*.router.ts'),
 };

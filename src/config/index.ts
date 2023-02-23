@@ -1,9 +1,13 @@
 import merge from 'lodash.merge';
 import * as process from "process";
+import path from "path";
+import * as dotenv from 'dotenv';
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-const state = process.env.STATE || 'local'
+const state = process.env.STATE || 'dev'
+//load .env file
+dotenv.config({ path: path.join(process.cwd(), `/src/config/.env.${state}`) })
 
 let envConfig
 console.log(state)
