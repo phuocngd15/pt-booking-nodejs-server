@@ -3,7 +3,7 @@ import process from "process";
 import {Logger} from "../middlewares/winstonLogger.middleware";
 const logger = new Logger(__filename)
 
-export const connectDB = async (): Promise<void> => {
+export const ConnectDB = async (): Promise<void> => {
     try {
         await mongoose.connect(process.env.DB_CONNECTION, {
         });
@@ -12,3 +12,4 @@ export const connectDB = async (): Promise<void> => {
         logger.error(`Error connecting to MongoDB: ${error}`)
     }
 };
+

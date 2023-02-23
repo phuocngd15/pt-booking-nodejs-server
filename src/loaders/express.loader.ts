@@ -1,13 +1,12 @@
 import express, {Request,Response } from "express";
 import errorMiddleware from "../middlewares/error.middleware";
-import usersRouter from "../modules/users/users.router";
-import accountRouter from "../modules/accounts/account.router";
 import {swaggerDocs} from "../modules/swagger/swaggerDocs";
 import swaggerUi from 'swagger-ui-express';
 import morgan from 'morgan'
 import helmet from 'helmet'
+import router from "../routers";
 
-export const App=()=>{
+const App=()=>{
     const app = express()
     // set log request
     app.use(morgan('dev'))
@@ -18,12 +17,18 @@ export const App=()=>{
     app.use(errorMiddleware);
 
     app.get('/', (req:Request, res:Response) => {
-        res.send('Hello, World!');
+        res.send('Server is running');
     });
-    app.use('/users', usersRouter);
-    app.use('/account', accountRouter);
-
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
+    app.use(process.env.RoutePrefix, router)
+
     return app;
+}
+
+export const StartApp = () => {
+    const app = App();
+    app.listen(process.env.APP_PORT, () => {
+        console.log(`Server is listening on port ${process.env.APP_PORT}`);
+    })
 }

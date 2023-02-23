@@ -1,4 +1,4 @@
-import { Request, Response,Router } from 'express';
+/*import { Request, Response,Router } from 'express';
 import { body, validationResult } from 'express-validator';
 
 const router = Router();
@@ -71,4 +71,22 @@ router.delete('/:id', async (req: Request, res: Response) => {
 });
 
 
-export default router;
+export default router;*/
+import express from 'express';
+import {
+    createUserController,
+    deletedUserController,
+    getUserController,
+    getUsersController,
+    updateUserController
+} from "./user.controller";
+
+const userRouter = express.Router();
+
+userRouter.get('/', getUsersController);
+userRouter.get('/:id', getUserController);
+userRouter.post('/', createUserController);
+userRouter.put('/:id', updateUserController);
+userRouter.delete('/:id', deletedUserController);
+
+export { userRouter };
