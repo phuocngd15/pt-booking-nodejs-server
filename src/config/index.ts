@@ -8,7 +8,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 const state = process.env.STATE || 'dev'
 //load .env file
 dotenv.config({path: path.join(process.cwd(), `/src/config/.env.${state}`)})
-console.log("process.env index.ts config",process.env)
+
 export const LoadConfig = async () => merge({
     env: process.env.NODE_ENV,
     port: 3001,

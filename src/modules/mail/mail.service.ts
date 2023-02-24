@@ -6,21 +6,50 @@ const { authenticate } = require('@google-cloud/local-auth');
 
 
 const { OAuth2 } = google.auth
-const OAUTH_PLAYGROUND = 'https://developers.google.com/oauthplayground'
+/*const OAUTH_PLAYGROUND = 'https://developers.google.com/oauthplayground'
 const SCOPES = ['https://www.googleapis.com/auth/gmail.send'];
 const CREDENTIALS_PATH = path.join(process.cwd(), 'credentials.json');
 const TOKEN_PATH = path.join(process.cwd(), '/src/modules/mail/token.json');
 
+*/
 const { MAILING_SERVICE_CLIENT_ID, GOOGLE_SECRET, GOOGLE_REFRESH_TOKEN, SENDER_EMAIL_ADDRESS } = process.env
 
+const CLIENT_ID = MAILING_SERVICE_CLIENT_ID;
+const CLIENT_SECRET = GOOGLE_SECRET;
+const REFRESH_TOKEN = GOOGLE_REFRESH_TOKEN;
+const EMAIL_ADDRESS = SENDER_EMAIL_ADDRESS;
 
-console.log(" MAILING_SERVICE_CLIENT_ID,\n" +
-    "    GOOGLE_SECRET,\n" +
-    "    GOOGLE_REFRESH_TOKEN,", MAILING_SERVICE_CLIENT_ID,
-    GOOGLE_SECRET,
-    GOOGLE_REFRESH_TOKEN,)
+const oauth2Client = new google.auth.OAuth2(
+    CLIENT_ID,
+    CLIENT_SECRET
+  );
+
+ /*  const authUrl = oauth2Client.generateAuthUrl({
+    access_type: 'offline',
+    scope: ['https://www.googleapis.com/auth/gmail.send']
+  }); */
+
+  oauth2Client.setCredentials({
+    refresh_token: REFRESH_TOKEN
+  });
 
 
+  const gmail = google.gmail({ version: 'v1', auth: oauth2Client });
+
+  const message = "From: secoder39@gmail.com\r\n" +
+  "To: secoder79@gmail.com\r\n" +
+  "Subject: Test Email\r\n\r\n" +
+  "Hello, this is a test email!";
+const encodedMessage = Buffer.from(message).toString('base64')
+  .replace(/\+/g, '-')
+  .replace(/\//g, '_')
+  .replace(/=+$/, '');
+
+const payload = {
+  raw: encodedMessage
+};
+
+/*
 async function loadSavedCredentialsIfExist() {
     try {
         const content = await fs.readFile(TOKEN_PATH);
@@ -57,14 +86,30 @@ async function saveCredentials(client) {
     });
     await fs.writeFile(TOKEN_PATH, payload);
 }
+*/
+const sendMail = async () => {
+    try {
+      const res = await gmail.users.messages.send({
+        userId: 'secoder39@gmail.com',
+        requestBody: {
+          raw: payload.raw
+        }
+      });
+      console.log('sended',res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 // send mail
+/*
 const sendMail2 =(oauth2Client)=> async () => {
     const to = 'secoder79@gmail.com';
     const url = 'test.com';
     const txt = "testtttt";
-  /*  const content = await fs.readFile(TOKEN_PATH);
+    const content = await fs.readFile(TOKEN_PATH);
     const credentials = JSON.parse(content);
-    const oauth2Client = await google.auth.fromJSON(credentials)*/
+    const oauth2Client = await google.auth.fromJSON(credentials)
 
     const accessToken =  oauth2Client.getAccessToken()
     console.log("accessToken",accessToken)
@@ -107,10 +152,9 @@ const sendMail2 =(oauth2Client)=> async () => {
             console.log("Email sent: " + infor.response);
         }
     })
-}
-const sendMail=()=>{
-    authorize().then(sendMail2).catch(console.error)
-}
+}*/
+
+
 export {
     sendMail
 }

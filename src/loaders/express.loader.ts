@@ -7,6 +7,7 @@ import helmet from 'helmet'
 import router from "../routers";
 import loggerMiddleware from "../middlewares/logger.middleware";
 import {sendMail} from "../modules/mail/mail.service";
+import e from "express";
 
 const App=()=>{
     const app = express()
@@ -18,8 +19,13 @@ const App=()=>{
     app.get('/', (req:Request, res:Response) => {
         res.send('Server is running');
     });
-    app.get('/send-mail', (req:Request, res:Response) => {
-        sendMail()
+    app.get('/send-mail',async (req:Request, res:Response) => {
+       await sendMail()
+            .then(()=>res.status(200).send('email sended'))
+            .catch(e=>{
+                res.status(40).send('email sended');
+                console.log("error send mail",e);
+            });
     });
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
@@ -32,6 +38,6 @@ const App=()=>{
 export const StartApp = () => {
     const app = App();
     app.listen(process.env.APP_PORT, () => {
-        console.log(`Server is listening on port ${process.env.APP_PORT}`);
+        console.log(`Server is listening on port http://localhost:${process.env.APP_PORT}`);
     })
 }
