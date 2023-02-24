@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import process from "process";
-import {Logger} from "../middlewares/winstonLogger.middleware";
+import {Logger} from "../middlewares/winston.middleware";
 const logger = new Logger(__filename)
 
 export const ConnectDB = async (): Promise<void> => {

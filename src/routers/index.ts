@@ -1,6 +1,6 @@
 import express from "express";
 import {userRouter} from "../modules/users/users.router";
-import accountRouter from "../modules/accounts/account.router";
+import accountRouter from "../modules/accounts/accounts.router";
 
 const router = express.Router()
 

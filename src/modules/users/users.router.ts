@@ -79,7 +79,7 @@ import {
     getUserController,
     getUsersController,
     updateUserController
-} from "./user.controller";
+} from "./users.controller";
 
 const userRouter = express.Router();
 

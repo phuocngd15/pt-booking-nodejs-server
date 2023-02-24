@@ -5,6 +5,8 @@ import swaggerUi from 'swagger-ui-express';
 import morgan from 'morgan'
 import helmet from 'helmet'
 import router from "../routers";
+import loggerMiddleware from "../middlewares/logger.middleware";
+import {sendMail} from "../modules/mail/mail.service";
 
 const App=()=>{
     const app = express()
@@ -13,15 +15,16 @@ const App=()=>{
 
     app.use(helmet())
 
-    //app.use(loggerMiddleware);
-    app.use(errorMiddleware);
-
     app.get('/', (req:Request, res:Response) => {
         res.send('Server is running');
+    });
+    app.get('/send-mail', (req:Request, res:Response) => {
+        sendMail()
     });
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
     app.use(process.env.RoutePrefix, router)
+    app.use(errorMiddleware);
 
     return app;
 }
