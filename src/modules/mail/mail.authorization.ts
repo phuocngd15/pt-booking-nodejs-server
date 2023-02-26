@@ -11,12 +11,15 @@ const path = require('path');
 const credentials = require('./credentials.json')
 const open = require('open');
 
-/*const CREDENTIALS_PATH = path.join(process.cwd(), '/src/modules/mail/credentials.json');
-const TOKEN_PATH = path.join(process.cwd(), '/src/modules/mail/token.json');*/
+
 const fs = require('fs');
 
 
-/*async function loadSavedCredentialsIfExist() {
+/*
+const CREDENTIALS_PATH = path.join(process.cwd(), '/src/modules/mail/credentials.json');
+const TOKEN_PATH = path.join(process.cwd(), '/src/modules/mail/token.json');
+
+async function loadSavedCredentialsIfExist() {
     try {
         const content = await fs.readFile(TOKEN_PATH);
         const credentials = JSON.parse(content);
@@ -92,5 +95,9 @@ step2: cung cap credentical qua router post/credentical
 step3:
         update MAILING_SERVICE_CLIENT_ID, GOOGLE_SECRET, GOOGLE_REFRESH_TOKEN lai neu mat
 Step4: dung mail service bt
-
+//Todo: hoan thien gmail service
+// 1 router nhap credential 3 thuoc tinh
+// nhap xong se tien hanh authentication de cap quyen send mail
+// co quyen send mail se luu lai token quyen
+// dung await google.auth.fromJSON(token) de authen lai moi lan gui mail?
 */
