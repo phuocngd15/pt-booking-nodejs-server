@@ -21,15 +21,13 @@ const App=()=>{
         res.send('Server is running');
     });
     app.get('/auth-gmail', (req:Request, res:Response) => {
-        AuthorizeGmail().then(e=> res.status(200 ).send({URL: e}));
+        AuthorizeGmail().then(e=> res.status(200 ).send("okey"));
     });
     app.get('/oauth2callback', (req:Request, res:Response) => {
         console.log("req.params",req.params)
         console.log("req.params",req.query)
         const {code}=req.query;
-        if(code) SaveTokenGMail(code).then(e=>res.status(200 )).catch(()=>{
-            res.status(404).send("error authenticating")
-        });
+        if(code) SaveTokenGMail(code);
     });
     app.get('/send-mail',async (req:Request, res:Response) => {
         const options = {
