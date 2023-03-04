@@ -6,6 +6,7 @@ import {IUser} from "./users.model";
 export const getUsersController = async (req: Request, res: Response): Promise<void> => {
     try {
         const users = await getAllUsers();
+        console.log("users",users)
         res.json(users);
     } catch (err) {
         res.status(500).json({message: err.message});

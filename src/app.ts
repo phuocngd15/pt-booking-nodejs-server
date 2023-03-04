@@ -6,7 +6,7 @@ import {StartApp} from "./loaders/express.loader";
 
 LoadConfig()
     .then(LoadWinston)
-    //.then(ConnectDB)
+    .then(ConnectDB)
     //.then(SeedingData)
     .then(StartApp)
     .catch((error) => console.log('Application is crashed: ' + error))

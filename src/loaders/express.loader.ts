@@ -9,13 +9,19 @@ import loggerMiddleware from "../middlewares/logger.middleware";
 import {sendMail} from "../modules/mail/mail.service";
 import e from "express";
 import {AuthorizeGmail, SaveTokenGMail} from "../modules/mail/mail.authorization";
-
+import cors from "cors"
 const App=()=>{
     const app = express()
     // set log request
     app.use(morgan('dev'))
 
     app.use(helmet())
+
+    app.use(function(req, res, next) {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        next();
+    });
 
     app.get('/', (req:Request, res:Response) => {
         res.send('Server is running');
