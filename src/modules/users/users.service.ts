@@ -1,6 +1,9 @@
 // users.service.ts
+
 import {IUser} from './users.model';
-import {create, findAll, findById, update,deleteUser as deleteUserRepo} from "./user.repository";
+import {create, findAll, findById, update,deleteUser as deleteUserRepo} from "./users.repository";
+
+
 
 
 const createUser = async (user: IUser): Promise<IUser> => {
