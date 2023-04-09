@@ -7,7 +7,7 @@ import {StarBot} from "./loaders/botOne.loader";
 
 LoadConfig()
     .then(LoadWinston)
-    .then(ConnectDB)
+   // .then(ConnectDB)
    // .then(SeedingData)
 
     .then(StartApp)
