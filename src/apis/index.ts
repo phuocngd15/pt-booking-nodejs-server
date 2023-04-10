@@ -4,6 +4,7 @@ import accountRouter from "../modules/accounts/accounts.router";
 import {botAPI} from "../modules/chatbotTelegram/subscribeBotOne";
 
 import trainersRouter from "../modules/trainers/trainers.router";
+import serviceProgramsRouter from "../modules/servicePrograms/servicePrograms.router";
 const apis = express.Router()
 
 const defaultRoutes = [
@@ -22,6 +23,10 @@ const defaultRoutes = [
     {
         path: '/trainers',
         route: trainersRouter,
+    },
+    {
+        path: '/services',
+        route: serviceProgramsRouter,
     }
 ]
 

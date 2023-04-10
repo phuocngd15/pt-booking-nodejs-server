@@ -67,6 +67,10 @@ function generateTrainerData(count: number,groupName:string): DataType[] {
     return data;
 }
 
+const getTrainersOfServices=(serviceId:string)=>{
+
+}
+
 export {
     generateTrainerData
 };

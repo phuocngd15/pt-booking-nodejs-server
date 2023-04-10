@@ -1,5 +1,6 @@
 import {IUser} from "../modules/users/users.model";
 import {IAccount} from "../modules/accounts/accounts.model";
+import {IProgram} from "../modules/servicePrograms/servicePrograms.model";
 
 export const accountSeedingData: Partial<IAccount>[] = [
     {
@@ -31,4 +32,14 @@ export const userSeedingData : Partial<IUser>[] = [
         avatar: 'https://example.com/avatar.png',
         account: accountSeedingData[1]._id,
     }
+];
+
+export const serviceProgramsSeedingData : Partial<IProgram>[] = [
+    {
+        serviceName: 'Class 001',
+        uuid: "serviceId001",
+        serviceType: ["Yoga"],
+        avatar: 'https://example.com/avatar.png',
+        responsibleEmployees:  [userSeedingData[0]._id ],
+    },
 ];

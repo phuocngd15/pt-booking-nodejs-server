@@ -16,6 +16,23 @@ const getTrainersByGroupController=async (req, res)=>{
 
     }
 }
+// get trainers by 1 service class
+const getTrainersByServiceIdController=async (req, res)=>{
+    try {
+        const {serviceId } = req.body;
+        console.log("serviceId ",req.body )
+        const data = generateTrainerData(10, serviceId)
+        const result ={
+            data: data,
+            code: 1,
+            message: 'ok',
+        }
+         res.json(result);
+    }
+    catch (err) {
+
+    }
+}
 export {
     getTrainersByGroupController
 }

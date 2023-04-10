@@ -5,7 +5,8 @@ const logger = new Logger(__filename)
 
 import UsersModel, {collectionUser} from "../modules/users/users.model";
 import AccountModel, {collectionAccount} from "../modules/accounts/accounts.model";
-import {accountSeedingData, userSeedingData} from "./sample.data";
+import ProgramModel, {collectionProgram} from "../modules/servicePrograms/servicePrograms.model";
+import {accountSeedingData, userSeedingData, serviceProgramsSeedingData} from "./sample.data";
 
 async function removeAllDataFromCollection(collectionName: string): Promise<void> {
     try {
@@ -18,14 +19,20 @@ async function removeAllDataFromCollection(collectionName: string): Promise<void
 
 export const SeedingData = async () => {
     try {
-
         await removeAllDataFromCollection(collectionAccount.toLowerCase());
         await removeAllDataFromCollection(collectionUser.toLowerCase());
         const accounts = await AccountModel.insertMany(accountSeedingData);
         accounts.forEach((e,index)=>{
             userSeedingData[index].account=e.id;
+            serviceProgramsSeedingData[0].responsibleEmployees.push(e.id);
         })
-        await UsersModel.insertMany(userSeedingData);
+
+        accounts.forEach((e,index)=>{
+            userSeedingData[index].account=e.id;
+        })
+
+        await ProgramModel.insertMany(serviceProgramsSeedingData);
+
         logger.info('Data seeded successfully');
     } catch (e) {
         logger.error('error seeding data  ', e);
