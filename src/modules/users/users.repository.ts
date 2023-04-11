@@ -1,4 +1,5 @@
-import UserDoc, {IUser} from './users.model';
+import UserDoc from '../dbModels/users.model';
+import {IUser} from "../dbModels/interface";
 
 
 const create = async (user: IUser): Promise<IUser> => {
@@ -8,6 +9,10 @@ const create = async (user: IUser): Promise<IUser> => {
 
 const findById = async (userId: string): Promise<IUser | null> => {
     return UserDoc.findById(userId).exec();
+}
+
+const findByUUId = async (uuids: string[]): Promise<IUser[] | null> => {
+    return UserDoc.find({ userId: { $in: uuids } });
 }
 
 const findAll = async (): Promise<IUser[]> => {
@@ -27,6 +32,7 @@ export {
     findById,
     findAll,
     update,
-    deleteUser
+    deleteUser,
+    findByUUId
 }
 

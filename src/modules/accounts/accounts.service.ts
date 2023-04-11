@@ -1,5 +1,5 @@
-import { IAccount } from './accounts.model';
 import {create, findById,findAll,update,deleteAccount} from './accounts.repository'
+import {IAccount} from "../dbModels/interface";
 
 class AccountsService {
     public async create(account: IAccount): Promise<IAccount> {

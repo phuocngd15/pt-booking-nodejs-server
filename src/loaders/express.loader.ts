@@ -9,7 +9,6 @@ import router from "../apis";
 import {sendMail} from "../modules/mail/mail.service";
 import {AuthorizeGmail, SaveTokenGMail} from "../modules/mail/mail.authorization";
 import bodyParser from "body-parser";
-import bookingRouters from "../modules/bookingServiceForms/_.router";
 import authRouters from "../modules/authentication/_.router";
 import managementRouters from "../modules/managementRouters/_.router";
 import {verifyToken} from "../middlewares/authenication.middleware";
@@ -70,8 +69,8 @@ const App=()=>{
             });
     });
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-    app.use('/booking',bookingRouters)
-        app.use(process.env.RoutePrefix, router)
+
+    app.use(process.env.RoutePrefix, router)
 
     app.use((err, req, res, next) => {
         console.error(err.stack);

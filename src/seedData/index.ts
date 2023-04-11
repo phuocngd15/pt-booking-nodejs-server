@@ -3,10 +3,12 @@ import {Logger} from "../middlewares/winston.middleware";
 
 const logger = new Logger(__filename)
 
-import UsersModel, {collectionUser} from "../modules/users/users.model";
-import AccountModel, {collectionAccount} from "../modules/accounts/accounts.model";
-import ProgramModel, {collectionProgram} from "../modules/servicePrograms/servicePrograms.model";
-import {accountSeedingData, userSeedingData, serviceProgramsSeedingData} from "./sample.data";
+import TrainersModel, {collectionName as collectionTrainer} from "../modules/dbModels/trainers.model";
+import AccountModel, {collectionAccount} from "../modules/dbModels/accounts.model";
+import ProgramModel, {collectionProgram} from "../modules/dbModels/servicePrograms.model";
+import {accountSeedingData, userSeedingData, serviceProgramsSeedingData, SessionsAbleMockData} from "./sample.data";
+import SessionModel, {collectionName as collectionSession} from "../modules/dbModels/session.model";
+
 
 async function removeAllDataFromCollection(collectionName: string): Promise<void> {
     try {
@@ -20,18 +22,27 @@ async function removeAllDataFromCollection(collectionName: string): Promise<void
 export const SeedingData = async () => {
     try {
         await removeAllDataFromCollection(collectionAccount.toLowerCase());
-        await removeAllDataFromCollection(collectionUser.toLowerCase());
+        await removeAllDataFromCollection(collectionTrainer.toLowerCase());
+        await removeAllDataFromCollection(collectionProgram.toLowerCase());
+        await removeAllDataFromCollection(collectionSession.toLowerCase());
+
         const accounts = await AccountModel.insertMany(accountSeedingData);
         accounts.forEach((e,index)=>{
             userSeedingData[index].account=e.id;
-            serviceProgramsSeedingData[0].responsibleEmployees.push(e.id);
+            userSeedingData[index].uuid=`trainer_${e.id}`;
+
+            serviceProgramsSeedingData[0].responsibleEmployees.push(`trainer_${e.id}`);
         })
 
         accounts.forEach((e,index)=>{
             userSeedingData[index].account=e.id;
         })
-
+        SessionsAbleMockData.forEach(e=>{
+            e.trainerUUID=userSeedingData[0].uuid
+        })
+        await TrainersModel.insertMany(userSeedingData);
         await ProgramModel.insertMany(serviceProgramsSeedingData);
+        await SessionModel.insertMany(SessionsAbleMockData);
 
         logger.info('Data seeded successfully');
     } catch (e) {
