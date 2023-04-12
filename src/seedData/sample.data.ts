@@ -61,6 +61,46 @@ export const serviceProgramsSeedingData: Partial<IProgram>[] = [
         responsibleEmployees: [],
         description: 'level intermediate',
     },
+    {
+        serviceName: 'Class 003',
+        uuid: "serviceUUID003",
+        serviceType: ["Yoga"],
+        avatar: 'https://example.com/avatar.png',
+        responsibleEmployees: [],
+        description: 'level intermediate',
+    },
+    {
+        serviceName: 'Class 004',
+        uuid: "serviceUUID004",
+        serviceType: ["Yoga"],
+        avatar: 'https://example.com/avatar.png',
+        responsibleEmployees: [],
+        description: 'level intermediate',
+    },
+    {
+        serviceName: 'Class 005',
+        uuid: "serviceUUID005",
+        serviceType: ["Yoga"],
+        avatar: 'https://example.com/avatar.png',
+        responsibleEmployees: [],
+        description: 'level intermediate',
+    },
+    {
+        serviceName: 'Class 006',
+        uuid: "serviceUUID006",
+        serviceType: ["Yoga"],
+        avatar: 'https://example.com/avatar.png',
+        responsibleEmployees: [],
+        description: 'level intermediate',
+    },
+    {
+        serviceName: 'Class 007',
+        uuid: "serviceUUID007",
+        serviceType: ["Yoga"],
+        avatar: 'https://example.com/avatar.png',
+        responsibleEmployees: [],
+        description: 'level intermediate',
+    },
 ];
 
 export const SessionsAbleMockData : Partial<ISession>[] = [{
