@@ -29,7 +29,6 @@ const getProgramDetailController=async (req, res): Promise<void> =>{
  const getAllProgramsController = async (req, res): Promise<void> => {
     try {
         const data = await getAllPrograms();
-
         const result ={
             data: data,
             code: 1,

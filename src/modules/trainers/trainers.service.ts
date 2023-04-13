@@ -40,9 +40,19 @@ const getAllTrainers=async (): Promise<ITrainer[] | null>=> {
         return null;
     }
 };
+const getTrainerByUUID=async (uuid: string): Promise<ITrainer | null>=> {
+    try {
+        const trainers = await TrainerDoc.findOne({uuid:uuid}).exec();
 
+        return trainers
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+};
 export {
     findTrainerByUUID,
     findTrainerBySkills,
-    getAllTrainers
+    getAllTrainers,
+    getTrainerByUUID
 };

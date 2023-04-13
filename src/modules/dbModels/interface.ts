@@ -40,6 +40,7 @@ export interface IUser {
     account: IAccount['_id'];
 
     uuid:string;
+    type: string;
     role: string;
 }
 
@@ -53,10 +54,15 @@ export interface ITrainer extends IUser{
 export interface ISession extends Document {
     startTime: Date;
     endTime: Date;
-    trainerUUID: string;
-    customerUUID: string;
+    trainerUUID?: string;
+    customerUUID?: string;
+
+    programUUID?: string;
+
     status: string;
+    uuid: string;
 
     createdAt: Date;
     updatedAt: Date;
+
 }

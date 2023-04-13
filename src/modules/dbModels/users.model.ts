@@ -25,6 +25,7 @@ const userSchema = new mongoose.Schema<IUser>({
     //account: { type: Schema.Types.ObjectId, ref: 'Account', required: true },
     account: {type: Schema.Types.ObjectId, ref: 'Account'},
     uuid: String,
+    type: String,
     role: String
 }, {
     minimize: false,

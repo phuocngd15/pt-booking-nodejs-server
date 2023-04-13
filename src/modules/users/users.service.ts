@@ -1,10 +1,18 @@
 // users.service.ts
 
-import {create, findAll, findById, update, deleteUser as deleteUserRepo, findByUUId} from "./users.repository";
+import {
+    create,
+    findAll,
+    findById,
+    update,
+    deleteUser as deleteUserRepo,
+    findByUUId,
+    findByEmail
+} from "./users.repository";
 import {IUser} from "../dbModels/interface";
 
 class UsersService {
-    public async createUser(user: IUser): Promise<IUser> {
+    public async createUser(user: Partial<IUser>): Promise<IUser> {
         return await create(user);
     }
 
@@ -15,6 +23,17 @@ class UsersService {
     public async findUsersByUUID(uuids: string[]): Promise<IUser[] | null> {
         try {
             const users = await findByUUId(uuids);
+
+            return users
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    };
+
+    public async findUserByEmail(uuids: string): Promise<IUser | null> {
+        try {
+            const users = await findByEmail(uuids);
 
             return users
         } catch (error) {
