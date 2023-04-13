@@ -12,11 +12,11 @@ const findById = async (userId: string): Promise<IUser | null> => {
 }
 
 const findByUUId = async (uuids: string[]): Promise<IUser[] | null> => {
-    return UserDoc.find({ userId: { $in: uuids } });
+    return UserDoc.find({ userId: { $in: uuids } }).exec();
 }
 
 const findByEmail = async (email: string): Promise<IUser | null> => {
-    return UserDoc.findOne({ email : { $in: email } });
+    return UserDoc.findOne({ email : { $in: email } }).exec();
 }
 
 const findAll = async (): Promise<IUser[]> => {

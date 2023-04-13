@@ -75,5 +75,9 @@ export const SessionService = {
     async getTickets() {
         const tickets = await SessionModel.find().exec();
         return tickets;
-    }
+    },
+    async getTicketByTicketUUID(uuid:string): Promise<ISession[]> {
+        const ticket  = await SessionModel.find({customerUUID:uuid}).exec();
+        return ticket;
+    },
 };

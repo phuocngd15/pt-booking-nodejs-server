@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { SessionService } from './session.service';
 import UsersService from "../users/users.service";
-import {IUser} from "../dbModels/interface";
+import {ISession, IUser} from "../dbModels/interface";
 import {getTrainerByUUID} from "../trainers/trainers.service";
 import dayjs from "dayjs";
 
@@ -133,6 +133,30 @@ export const SessionController = {
             }
 
             return res.send(tickets);
+        } catch (error) {
+            console.error(error);
+            return res.status(500).send({ message: 'Internal server error' });
+        }
+    },
+    async  getTicketByTicketUUID(req: Request, res: Response) {
+        try {
+            const uuid = req.params.ticketCode;
+            console.log(" trainerUUID",uuid)
+            let tickets :ISession[],
+                user :IUser
+            if(uuid.includes("@gmail")){
+                user = await userService.findUserByEmail(uuid);
+               if(user) tickets = await SessionService.getTicketByTicketUUID(`customer_${user._id}`);
+            }
+            else if (uuid) {
+                tickets = await SessionService.getTicketByTicketUUID(uuid);
+            }
+
+            if (!tickets) {
+                return res.status(404).send({ message: 'No tickets found' });
+            }
+
+            return res.send({tickets:tickets, user: user});
         } catch (error) {
             console.error(error);
             return res.status(500).send({ message: 'Internal server error' });

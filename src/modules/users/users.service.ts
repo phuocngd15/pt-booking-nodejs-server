@@ -31,9 +31,9 @@ class UsersService {
         }
     };
 
-    public async findUserByEmail(uuids: string): Promise<IUser | null> {
+    public async findUserByEmail(email: string): Promise<IUser | null> {
         try {
-            const users = await findByEmail(uuids);
+            const users = await findByEmail(email);
 
             return users
         } catch (error) {

@@ -15,6 +15,7 @@ const sessionSchema = new Schema<ISession>({
         type: Date,
         default: Date.now
     },
+    uuid:{ type:String}
 }, {
     minimize: false,
 });
