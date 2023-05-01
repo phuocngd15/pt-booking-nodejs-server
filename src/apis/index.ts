@@ -6,10 +6,15 @@ import {botAPI} from "../modules/chatbotTelegram/subscribeBotOne";
 import trainersRouter from "../modules/trainers/trainers.router";
 import serviceProgramsRouter from "../modules/servicePrograms/servicePrograms.router";
 import sessionRouter from "../modules/sessionsBK/session.router";
+import mailRouter from "../modules/mail/mail.router";
+import authRouters from "../modules/authentication/_.router";
 const apis = express.Router()
 
 const defaultRoutes = [
     {
+        path: '/auth',
+        route: authRouters,
+    },{
         path: '/users',
         route: userRouter,
     },
@@ -32,6 +37,10 @@ const defaultRoutes = [
     {
         path: '/sessions',
         route: sessionRouter,
+    }    ,
+    {
+        path: '/mail',
+        route: mailRouter,
     }
 ]
 

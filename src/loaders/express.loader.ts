@@ -28,52 +28,13 @@ const App=()=>{
     app.use(cors());
     app.use(helmet())
 
-    // app.use(function(req, res, next) {
-    //     res.header("Access-Control-Allow-Origin", "*");
-    //     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    //     next();
-    // });
-    app.use('/', authRouters)
-    app.use('/routers', verifyToken, managementRouters)
-    // app.get('/', (req:Request, res:Response) => {
-    //     res.send('Server is running');
-    // });
-    app.get('/auth-gmail', (req:Request, res:Response) => {
-        AuthorizeGmail().then(e=> {
-            console.log('AuthorizeGmail', e)
-            res.status(200 ).send("okey")
-        });
+    app.get('/', (req:Request, res:Response) => {
+        res.send('Server is running');
     });
-    app.get('/auth/google/callback', (req:Request, res:Response) => {
-        console.log("req.params",req.params)
-        console.log("req.query",req.query)
-        const {code}=req.query;
 
-        if(code) SaveTokenGMail(code);
-    });
-    app.get('/send-mail',async (req:Request, res:Response) => {
-        const options = {
-            to: 'secoder79@gmail.com',
-            cc: '',
-            replyTo: '',
-            subject: 'Hello Coder79 🚀',
-            text: 'This email is sent from the command line',
-            html: `<p>🙋🏻‍♀️  &mdash; This is a <b>test email</b> from <a href="https://digitalinspiration.com">Digital Inspiration</a>.</p>`,
-            attachments: '',
-            textEncoding: 'base64',
-            headers: [
-                { key: 'X-Application-Developer', value: 'Amit Agarwal' },
-                { key: 'X-Application-Version', value: 'v1.0.0.2' },
-            ],
-        };
-       await sendMail(options)
-            .then(()=>res.status(200).send('email sended'))
-            .catch(e=>{
-                res.status(400).send('error send mail');
-                console.log("error send mail",e);
-            });
-    });
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+    app.use('/routers', verifyToken, managementRouters)
 
     app.use(process.env.RoutePrefix, router)
 
