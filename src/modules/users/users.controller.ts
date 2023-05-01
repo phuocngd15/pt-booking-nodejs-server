@@ -1,11 +1,12 @@
 import {Request, Response} from "express";
-import {getAllUsers, getUserById, createUser, updateUser, deleteUser} from "./users.service";
-import {IUser} from "./users.model";
 
+import UsersService from "./users.service";
+import {IUser} from "../dbModels/interface";
 
+const usersService = new UsersService();
 export const getUsersController = async (req: Request, res: Response): Promise<void> => {
     try {
-        const users = await getAllUsers();
+        const users = await usersService.getAllUsers();
         console.log("users",users)
         res.json(users);
     } catch (err) {
@@ -18,7 +19,7 @@ export const getUserController = async (req: Request, res: Response): Promise<vo
     console.log("req", req.params)
     try {
         const id = req.params.id;
-        const user = await getUserById(id);
+        const user = await usersService.getUserById(id);
         if (!user) {
             res.status(404).json({message: 'User not found'});
         } else {
@@ -31,20 +32,20 @@ export const getUserController = async (req: Request, res: Response): Promise<vo
 
 export const createUserController = async (req: Request, res: Response): Promise<void> => {
     const user: IUser = req.body;
-    const newUser = await createUser(user);
+    const newUser = await usersService.createUser(user);
     res.json(newUser);
 }
 
 export const updateUserController = async (req: Request, res: Response): Promise<void> => {
     const id = req.params.id;
     const user: IUser = req.body;
-    const updatedUser = await updateUser(id, user);
+    const updatedUser = await usersService.updateUser(id, user);
     res.json(updatedUser);
 }
 
 export const deletedUserController = async (req: Request, res: Response): Promise<void> => {
     const id = req.params.id;
-    const deletedUser = await deleteUser(id);
+    const deletedUser = await usersService.deleteUser(id);
     res.json(deletedUser);
 }
 

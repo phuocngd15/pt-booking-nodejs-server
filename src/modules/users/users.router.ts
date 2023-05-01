@@ -80,6 +80,7 @@ import {
     getUsersController,
     updateUserController
 } from "./users.controller";
+import {requireLogin} from "../../middlewares/authenication.middleware";
 
 const userRouter = express.Router();
 

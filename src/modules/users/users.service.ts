@@ -1,37 +1,62 @@
 // users.service.ts
 
-import {IUser} from './users.model';
-import {create, findAll, findById, update,deleteUser as deleteUserRepo} from "./users.repository";
+import {
+    create,
+    findAll,
+    findById,
+    update,
+    deleteUser as deleteUserRepo,
+    findByUUId,
+    findByEmail
+} from "./users.repository";
+import {IUser} from "../dbModels/interface";
 
+class UsersService {
+    public async createUser(user: Partial<IUser>): Promise<IUser> {
+        return await create(user);
+    }
 
+    public async getUserById(id: string): Promise<IUser | null> {
+        return await findById(id);
+    }
 
+    public async findUsersByUUID(uuids: string[]): Promise<IUser[] | null> {
+        try {
+            const users = await findByUUId(uuids);
 
-const createUser = async (user: IUser): Promise<IUser> => {
-    return await create(user);
+            return users
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    };
+
+    public async findUserByEmail(email: string): Promise<IUser | null> {
+        try {
+            const users = await findByEmail(email);
+
+            return users
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
+    };
+
+    public async updateUser(id: string, updates: Partial<IUser>): Promise<IUser | null> {
+        return await update(id, updates);
+    }
+
+    public async deleteUser(id: string): Promise<boolean> {
+        const result = await deleteUserRepo(id);
+        if (!result) {
+            return false;
+        } else return true
+    }
+
+    public async getAllUsers(): Promise<IUser[]> {
+        return await findAll();
+    }
 }
 
-const getUserById = async (id: string): Promise<IUser | null> => {
-    return await findById(id);
-}
+export default UsersService
 
-const updateUser = async (id: string, updates: Partial<IUser>): Promise<IUser | null> => {
-    return await update(id, updates);
-}
-
-const deleteUser = async (id: string): Promise<boolean> => {
-    const result = await deleteUserRepo(id);
-    if (!result) {
-        return false;
-    } else return true
-}
-
-const getAllUsers = async (): Promise<IUser[]> => {
-    return await findAll();
-}
-export {
-    createUser,
-    getUserById,
-    updateUser,
-    deleteUser,
-    getAllUsers
-}
