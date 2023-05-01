@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book an Appointment</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            font-size: 16px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-font-smoothing: antialiased;
+        }
+        .mainContent {
+            max-width: 1024px;
+            min-width: 320px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .center{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="mainContent">
+    <h1 class="center">Book an Appointment</h1>
+    <% if (message) { %>
+        <p><%= message %></p>
+    <% } %>
+    <form method="POST" action="booking/book">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name">
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+        </div>
+        <div>
+            <label for="phone">Phone:</label>
+            <input type="text" id="phone" name="phone">
+        </div>
+        <div>
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date">
+        </div>
+        <div>
+            <label for="time">Time:</label>
+            <input type="time" id="time" name="time">
+        </div>
+        <div>
+            <label for="service">Service:</label>
+            <select id="service" name="service">
+                <% services.forEach(function(service) { %>
+                    <option value="<%= service.value %>"><%= service.label %></option>
+                <% }); %>
+            </select>
+        </div>
+        <button type="submit">Book</button>
+    </form>
+
+</div>
+
+</body>
+</html>

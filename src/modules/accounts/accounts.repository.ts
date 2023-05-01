@@ -1,6 +1,7 @@
-import Account, {IAccount} from './accounts.model';
-import AccountModel from "./accounts.model";
+import Account from '../dbModels/accounts.model';
+import AccountModel from "../dbModels/accounts.model";
 import mongoose from "mongoose";
+import {IAccount} from "../dbModels/interface";
 
 
 const create = async (account: IAccount): Promise<IAccount> => {

@@ -1,23 +1,9 @@
 // users.model.ts
 
 import mongoose, {Schema} from 'mongoose';
-import {IAccount} from '../accounts/accounts.model';
+import {ITrainer} from "./interface";
 
-export interface IUser {
-    _id: mongoose.Types.ObjectId;
-    fullName: string;
-    gender: string;
-    phone: string;
-    email: string;
-    address: string;
-    birthday: Date;
-    avatar: string;
-    createdAt: Date;
-    account: IAccount['_id'];
-}
-
-
-const userSchema = new mongoose.Schema<IUser>({
+const userSchema = new mongoose.Schema<ITrainer>({
     fullName: String,
     gender: String,
     phone: {
@@ -38,8 +24,14 @@ const userSchema = new mongoose.Schema<IUser>({
     },
     //account: { type: Schema.Types.ObjectId, ref: 'Account', required: true },
     account: {type: Schema.Types.ObjectId, ref: 'Account'},
+    uuid: String,
+    role: String,
+
+    skills: {type: [String]},
+
+    certificates: {type: [String]}
 }, {
-    minimize: false
+    minimize: false,
 });
 /*
 export const collectionName = 'UserDoc'
@@ -47,5 +39,5 @@ export default mongoose.model<IUser>('UserDoc', userSchema);
 */
 
 
-export const collectionUser = 'users';
-export default mongoose.model<IUser>(collectionUser, userSchema, collectionUser);
+export const collectionName = 'trainers';
+export default mongoose.model<ITrainer>(collectionName, userSchema, collectionName);

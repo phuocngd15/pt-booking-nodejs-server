@@ -1,11 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
+import {IAccount} from "./interface";
 
-export interface IAccount {
-    _id: mongoose.Types.ObjectId;
-    username: string;
-    password: string;
-    createdAt:Date;
-}
+
 
 const accountSchema = new Schema<IAccount>({
     username: { type: String, required: true, unique:true },
