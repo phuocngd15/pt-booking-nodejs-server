@@ -6,6 +6,7 @@ const sessionSchema = new Schema<ISession>({
     endTime: { type: Date, required: true },
     trainerUUID: { type: String, required: true },
     customerUUID: { type: String},
+    programUUID:  { type: String , required: true},
     status: {type: String},
     createdAt: {
         type: Date,

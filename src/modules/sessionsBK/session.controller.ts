@@ -1,9 +1,11 @@
 import { Request, Response } from 'express';
 import { SessionService } from './session.service';
 import UsersService from "../users/users.service";
-import {ISession, IUser} from "../dbModels/interface";
+import {IProgram, ISession, IUser} from "../dbModels/interface";
 import {getTrainerByUUID} from "../trainers/trainers.service";
 import dayjs from "dayjs";
+import {sendConfirmBooking} from "../mail/mail.service";
+import {findProgramByUUID, getAllPrograms} from "../servicePrograms/servicePrograms.service";
 
 const userService = new UsersService();
 export const SessionController = {
@@ -76,6 +78,13 @@ export const SessionController = {
             );
             console.log("starttime", ticket)
             console.log("starttime", dayjs(ticket.startTime).tz('Asia/Ho_Chi_Minh').toJSON())
+            await sendConfirmBooking(
+                {
+                    email: cusEmail,
+                    name:cusName,
+                    bookingDate: dayjs(ticket.startTime).tz('Asia/Ho_Chi_Minh').toJSON()
+                }
+            )
             res.json({
                 code: 1,
                 message: 'ok',
@@ -138,16 +147,21 @@ export const SessionController = {
             return res.status(500).send({ message: 'Internal server error' });
         }
     },
+
     async  getTicketByTicketUUID(req: Request, res: Response) {
         try {
             const uuid = req.params.ticketCode;
             console.log(" trainerUUID",uuid)
-            let tickets :ISession[],
-                user :IUser
+            let tickets ;
+
+                let user :IUser
+            let programs: IProgram[];
+
             if(uuid.includes("@gmail")){
                 user = await userService.findUserByEmail(uuid);
-               if(user) tickets = await SessionService.getTicketByTicketUUID(`customer_${user._id}`);
+               if(user) tickets = await SessionService.getTicketsByCustomerUUID(`customer_${user._id}`);
             }
+
             else if (uuid) {
                 tickets = await SessionService.getTicketByTicketUUID(uuid);
             }
@@ -156,6 +170,12 @@ export const SessionController = {
                 return res.status(404).send({ message: 'No tickets found' });
             }
 
+            // programs = await getAllPrograms()
+            // tickets.forEach(e=>{
+            //    if(e.programUUID){
+            //        e["ProgramName"]= programs.filter(p=>p.uuid===e.programUUID)[0].serviceName
+            //    }
+            // })
             return res.send({tickets:tickets, user: user});
         } catch (error) {
             console.error(error);

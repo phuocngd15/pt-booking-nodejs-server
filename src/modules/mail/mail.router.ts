@@ -39,4 +39,38 @@ router.get('/send-mail',async (req:Request, res:Response) => {
         });
 });
 
+router.get('/recover-pass',async (req:Request, res:Response)=>{
+    console.log("req.query",req.query)
+    res.status(200).json(req.query)
+});
+
+router.get('/confirm-booking',async (req:Request, res:Response)=>{
+    console.log("req.query",req.query)
+    const { name, email, bookingDate } = req.query;
+    if(!name || !email || !bookingDate) {
+        res.status(400).send('error send mail');
+        return
+    }
+    const options = {
+        to: email,
+        cc: '',
+        replyTo: '',
+        subject: 'Booking Confirmation',
+        text: `Dear ${name},\n\nYour booking on ${bookingDate} has been confirmed.`,
+        html: `<p>Dear ${name},</p><p>Your booking on ${bookingDate} has been confirmed.</p>`,
+        attachments: '',
+        textEncoding: 'base64',
+        headers: [
+            { key: 'X-Application-Developer', value: 'Amit Agarwal' },
+            { key: 'X-Application-Version', value: 'v1.0.0.2' },
+        ],
+    };
+    await sendMail(options)
+        .then(()=>res.status(200).send('email sended'))
+        .catch(e=>{
+            res.status(400).send('error send mail');
+            console.log("error send mail",e);
+        });
+    res.status(200).json(req.query)
+});
 export default router;

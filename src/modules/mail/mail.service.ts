@@ -41,7 +41,33 @@ const sendMail = async (options) => {
         console.error(error);
     }
 };
+const sendConfirmBooking = async (props: { email: string, bookingDate: string, name: string }) => {
+    const { email, bookingDate, name } = props;
 
+    const options = {
+        to: email,
+        cc: '',
+        replyTo: '',
+        subject: 'Booking Confirmation',
+        text: `Dear ${name},\n\nYour booking on ${bookingDate} has been confirmed.`,
+        html: `<p>Dear ${name},</p><p>Your booking on ${bookingDate} has been confirmed.</p>`,
+        attachments: '',
+        textEncoding: 'base64',
+        headers: [
+            { key: 'X-Application-Developer', value: 'Your Name' },
+            { key: 'X-Application-Version', value: 'v1.0.0' },
+        ],
+    };
+
+    try {
+        await sendMail(options);
+        console.log('Booking confirmation email sent');
+    } catch (err) {
+        console.error('Error sending booking confirmation email:', err);
+        throw err; // re-throw the error so the caller can handle it
+    }
+};
 export {
-    sendMail
+    sendMail,
+    sendConfirmBooking,
 }

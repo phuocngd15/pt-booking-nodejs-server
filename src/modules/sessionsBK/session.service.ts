@@ -4,6 +4,9 @@ import dayjs, {Dayjs} from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import { v4 as uuidv4 } from 'uuid';
+import ServiceProgramsModel from "../dbModels/servicePrograms.model";
+import usersModel from "../dbModels/users.model";
+import trainersModel from "../dbModels/trainers.model";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -63,7 +66,21 @@ export const SessionService = {
     },
 
     async getTicketsByCustomerUUID(customerUUID:string) {
-        const tickets = await SessionModel.find({ customerUUID:customerUUID }).exec();
+        const tickets = await SessionModel.find({ customerUUID:customerUUID }).lean().exec();
+
+        const classrooms = await ServiceProgramsModel.find().select('serviceName uuid description').lean().exec();
+        const trainers = await trainersModel.find().select('fullName uuid').lean().exec();
+
+        return tickets.map((ticket) => {
+            const classroom = classrooms.find((c) => c.uuid === ticket.programUUID);
+            const trainer = trainers.find((c) => c.uuid === ticket.trainerUUID);
+            return {
+                ...ticket,
+                classroom: classroom || null,
+                trainer: trainer || null,
+            };
+        });
+
         return tickets;
     },
 
@@ -77,7 +94,9 @@ export const SessionService = {
         return tickets;
     },
     async getTicketByTicketUUID(uuid:string): Promise<ISession[]> {
-        const ticket  = await SessionModel.find({customerUUID:uuid}).exec();
+        const ticket  = await SessionModel.find({uuid:uuid}).exec();
         return ticket;
     },
+
+
 };

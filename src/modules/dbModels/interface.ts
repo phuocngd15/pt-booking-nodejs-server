@@ -57,7 +57,7 @@ export interface ISession extends Document {
     trainerUUID?: string;
     customerUUID?: string;
 
-    programUUID?: string;
+    programUUID: string;
 
     status: string;
     uuid: string;

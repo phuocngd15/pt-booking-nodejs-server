@@ -3,7 +3,7 @@ import {IProgram} from "../dbModels/interface";
 
 const getAllPrograms =async (): Promise<IProgram[]> => {
     try {
-        const services: IProgram[] = await ProgramsDoc.find();
+        const services: IProgram[] = await ProgramsDoc.find().exec();
         return services;
     } catch (error) {
         console.error(error);
