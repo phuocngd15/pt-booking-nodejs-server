@@ -8,6 +8,7 @@ import cors from 'cors'
 import router from "../apis";
 import {sendMail} from "../modules/mail/mail.service";
 import {AuthorizeGmail, SaveTokenGMail} from "../modules/mail/mail.authorization";
+
 import bodyParser from "body-parser";
 import authRouters from "../modules/authentication/_.router";
 import managementRouters from "../modules/managementRouters/_.router";
@@ -38,12 +39,16 @@ const App=()=>{
     //     res.send('Server is running');
     // });
     app.get('/auth-gmail', (req:Request, res:Response) => {
-        AuthorizeGmail().then(e=> res.status(200 ).send("okey"));
+        AuthorizeGmail().then(e=> {
+            console.log('AuthorizeGmail', e)
+            res.status(200 ).send("okey")
+        });
     });
-    app.get('/oauth2callback', (req:Request, res:Response) => {
+    app.get('/auth/google/callback', (req:Request, res:Response) => {
         console.log("req.params",req.params)
-        console.log("req.params",req.query)
+        console.log("req.query",req.query)
         const {code}=req.query;
+
         if(code) SaveTokenGMail(code);
     });
     app.get('/send-mail',async (req:Request, res:Response) => {
@@ -64,7 +69,7 @@ const App=()=>{
        await sendMail(options)
             .then(()=>res.status(200).send('email sended'))
             .catch(e=>{
-                res.status(400).send('email sended');
+                res.status(400).send('error send mail');
                 console.log("error send mail",e);
             });
     });
