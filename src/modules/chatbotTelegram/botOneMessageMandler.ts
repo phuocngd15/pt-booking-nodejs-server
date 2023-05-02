@@ -1,4 +1,4 @@
-const handler=(chatId):string=>{
-    return "Hi"
-}
+const handler = (chatId): string => {
+  return 'Hi';
+};
 export default handler;

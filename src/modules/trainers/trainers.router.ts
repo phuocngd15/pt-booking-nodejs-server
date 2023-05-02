@@ -9,8 +9,8 @@ router.post('/logout', function);
 export default router;
 */
 
-import {Router} from 'express';
-import {getTrainersByGroupController} from "./trainers.controller";
+import { Router } from 'express';
+import { getTrainersByGroupController } from './trainers.controller';
 const router = Router();
 
 router.post('/groups', getTrainersByGroupController);

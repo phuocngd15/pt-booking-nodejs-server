@@ -74,13 +74,13 @@ router.delete('/:id', async (req: Request, res: Response) => {
 export default router;*/
 import express from 'express';
 import {
-    createUserController,
-    deletedUserController,
-    getUserController,
-    getUsersController,
-    updateUserController
-} from "./users.controller";
-import {requireLogin} from "../../middlewares/authenication.middleware";
+  createUserController,
+  deletedUserController,
+  getUserController,
+  getUsersController,
+  updateUserController,
+} from './users.controller';
+import { requireLogin } from '../../middlewares/authenication.middleware';
 
 const userRouter = express.Router();
 

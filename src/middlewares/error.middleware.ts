@@ -1,13 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
 
 const errorMiddleware = (err: any, req: Request, res: Response, next: NextFunction) => {
-    console.error("err.stack",err.stack);
+  console.error('err.stack', err.stack);
 
-    if (res.headersSent) {
-        return next(err);
-    }
+  if (res.headersSent) {
+    return next(err);
+  }
 
-    res.status(500).json({ message: 'Internal server error' });
+  res.status(500).json({ message: 'Internal server error' });
 };
 
 export default errorMiddleware;
