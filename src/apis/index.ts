@@ -7,7 +7,7 @@ import trainersRouter from '../modules/trainers/trainers.router';
 import serviceProgramsRouter from '../modules/servicePrograms/servicePrograms.router';
 import sessionRouter from '../modules/sessionsBK/session.router';
 import mailRouter from '../modules/mail/mail.router';
-import authRouters from '../modules/authentication/_.router';
+import authRouters from '../modules/authentication/auth.router';
 const apis = express.Router();
 
 const defaultRoutes = [

@@ -10,7 +10,7 @@ import { sendMail } from '../modules/mail/mail.service';
 import { AuthorizeGmail, SaveTokenGMail } from '../modules/mail/mail.authorization';
 
 import bodyParser from 'body-parser';
-import authRouters from '../modules/authentication/_.router';
+import authRouters from '../modules/authentication/auth.router';
 import managementRouters from '../modules/managementRouters/_.router';
 import { verifyToken } from '../middlewares/authenication.middleware';
 

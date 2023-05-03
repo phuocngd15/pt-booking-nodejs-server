@@ -65,20 +65,24 @@ const adminRoute = [
     path: '/timeSlot-management',
     id: 'TimeSlot ',
   },
+  {
+    path: '/accounts-management',
+    id: 'AccountsManagement',
+  },
 ];
 
 export const getRoute = async (req, res, next) => {
   try {
     console.log('getRoute');
-    const { name } = req.body;
+    const { role } = req.body;
     let result = {};
-    if (name == 'admin') {
+    if (role == 'admin') {
       result = {
         data: [...power, ...adminRoute],
         code: 1,
         message: 'ok',
       };
-    } else if (name == 'test') {
+    } else if (role == 'test') {
       result = {
         data: [...power],
         code: 1,

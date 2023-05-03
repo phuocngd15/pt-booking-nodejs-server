@@ -2,13 +2,12 @@ import { Router } from 'express';
 import { IAccount } from '../dbModels/interface';
 import AccountsService from '../accounts/accounts.service';
 import {sendMailResetPass} from "../mail/mail.service";
-import dayjs from "dayjs";
 import ResetToken from "../dbModels/resetToken.model";
 import AccountsModel from "../dbModels/accounts.model";
-const jwt = require('jsonwebtoken');
-const crypto = require('crypto');
+import jwt from 'jsonwebtoken'
+import crypto from 'crypto'
+import bcrypt from 'bcrypt'
 
-const bcrypt = require('bcrypt');
 const secretKey = 'mysecretkey';
 
 export interface UseInfoType {
@@ -77,7 +76,7 @@ export const register = async (req, res) => {
     // Check if account with the same username already exists
     const existingAccount = await accountService.getByUserName(username);
     if (existingAccount) {
-      return res.status(409).json({ message: 'Account with this username already exists' });
+      return res.json({ code:2,data:undefined, message: 'Email is invalid or already taken'});
     }
 
     // Hash the password before saving to the database
@@ -88,11 +87,12 @@ export const register = async (req, res) => {
       username,
       password: hashedPassword,
     });
-
-    res.status(201).json({
+    const result = {
+      data: newAccount,
+      code: 1,
       message: 'Account created successfully',
-      newAccount: newAccount,
-    });
+    };
+    res.json(result);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Internal server error' });

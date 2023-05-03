@@ -6,6 +6,7 @@ export interface IAccount {
   password: string;
   power: string;
   createdAt: Date;
+  key:string;
 }
 
 export interface IProgram {
