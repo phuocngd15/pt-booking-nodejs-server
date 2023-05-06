@@ -1,12 +1,12 @@
 import { Router } from 'express';
 import { IAccount } from '../dbModels/interface';
 import AccountsService from '../accounts/accounts.service';
-import {sendMailResetPass} from "../mail/mail.service";
-import ResetToken from "../dbModels/resetToken.model";
-import AccountsModel from "../dbModels/accounts.model";
-import jwt from 'jsonwebtoken'
-import crypto from 'crypto'
-import bcrypt from 'bcrypt'
+import { sendMailResetPass } from '../mail/mail.service';
+import ResetToken from '../dbModels/resetToken.model';
+import AccountsModel from '../dbModels/accounts.model';
+import jwt from 'jsonwebtoken';
+import crypto from 'crypto';
+import bcrypt from 'bcrypt';
 
 const secretKey = 'mysecretkey';
 
@@ -76,7 +76,7 @@ export const register = async (req, res) => {
     // Check if account with the same username already exists
     const existingAccount = await accountService.getByUserName(username);
     if (existingAccount) {
-      return res.json({ code:2,data:undefined, message: 'Email is invalid or already taken'});
+      return res.json({ code: 2, data: undefined, message: 'Email is invalid or already taken' });
     }
 
     // Hash the password before saving to the database
@@ -99,7 +99,7 @@ export const register = async (req, res) => {
   }
 };
 
-const changePass= async (req, res) => {
+const changePass = async (req, res) => {
   const { token } = req.params;
   const { password } = req.body;
   const resetToken = await ResetToken.findOne({ token });
@@ -114,7 +114,7 @@ const changePass= async (req, res) => {
   res.send('Password reset successfully');
 };
 
-export const resetpass=async (req, res)=>{
+export const resetpass = async (req, res) => {
   const { username, password } = req.body;
 
   // Check if account with the same username already exists
@@ -123,32 +123,27 @@ export const resetpass=async (req, res)=>{
     return res.status(400).send('No user with that email address');
   }
   const token = crypto.randomBytes(20).toString('hex');
-  const resetToken = new ResetToken({ email:username, token });
+  const resetToken = new ResetToken({ email: username, token });
   await resetToken.save();
   const resetLink = `http://localhost:5174/reset-password?token=${token}`;
 
   await sendMailResetPass({
     email: existingAccount.username,
-    name: "cusNameXXX",
+    name: 'cusNameXXX',
     url: resetLink,
-  }).then(()=> res.send('Password reset email sent successfully')).catch(e=>{
-    console.log(e);
-    res.send('Password reset failed');
-  });
+  })
+    .then(() => res.send('Password reset email sent successfully'))
+    .catch((e) => {
+      console.log(e);
+      res.send('Password reset failed');
+    });
 
-
-
-    // return res.status(200).json({ message: 'Your request have been sent to email' });
-
-
-
-
-}
+  // return res.status(200).json({ message: 'Your request have been sent to email' });
+};
 router.post('/login', login);
 router.post('/logout', logout);
 router.post('/register', register);
 router.post('/resetpass', resetpass);
 router.post('/reset-password/:token', changePass);
-
 
 export default router;

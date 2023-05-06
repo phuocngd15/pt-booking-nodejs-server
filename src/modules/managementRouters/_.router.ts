@@ -33,7 +33,16 @@ const power = [
     ],
   },
 ];
-
+const customerRoute = [
+  {
+    path: '/home',
+    id: 'Home',
+  },
+  {
+    path: '/calendar',
+    id: 'CusCalendar',
+  },
+];
 const adminRoute = [
   {
     path: '/power',
@@ -44,6 +53,10 @@ const adminRoute = [
         id: 'UseList',
       },
     ],
+  },
+  {
+    path: '/calendar',
+    id: 'AdminCalendar',
   },
   {
     path: '/cus-management',
@@ -76,24 +89,35 @@ export const getRoute = async (req, res, next) => {
     console.log('getRoute');
     const { role } = req.body;
     let result = {};
-    if (role == 'admin') {
-      result = {
-        data: [...power, ...adminRoute],
-        code: 1,
-        message: 'ok',
-      };
-    } else if (role == 'test') {
-      result = {
-        data: [...power],
-        code: 1,
-        message: 'ok',
-      };
-    } else {
-      result = {
-        data: [],
-        code: -1,
-        message: 'Account error',
-      };
+    switch (role) {
+      case 'admin':
+        result = {
+          data: [...power, ...adminRoute],
+          code: 1,
+          message: 'ok',
+        };
+        break;
+      case 'test':
+        result = {
+          data: [...power],
+          code: 1,
+          message: 'ok',
+        };
+        break;
+      case 'customer':
+        result = {
+          data: [...customerRoute],
+          code: 1,
+          message: 'ok',
+        };
+        break;
+      default:
+        result = {
+          data: [],
+          code: -1,
+          message: 'Account error',
+        };
+        break;
     }
     res.json(result);
   } catch (err) {

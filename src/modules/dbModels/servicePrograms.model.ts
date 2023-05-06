@@ -22,7 +22,7 @@ const ProgramSchema = new mongoose.Schema<IProgram>(
       type: Date,
       default: Date.now,
     },
-    serviceType: { type: [String] },
+    serviceType: { type: [String] }, // mot class co nhieu tags, tags de danh dau loai lop hoc
     responsibleEmployees: { type: [String] },
     // responsibleEmployees: [{ type: Schema.Types.ObjectId, ref: 'Account' }],
 

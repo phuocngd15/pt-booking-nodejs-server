@@ -73,7 +73,6 @@ const sendConfirmBooking = async (props: { email: string; bookingDate: string; n
   }
 };
 
-
 const sendMailResetPass = async (props: { email: string; url: string; name: string }) => {
   const { email, url, name } = props;
 
@@ -100,4 +99,4 @@ const sendMailResetPass = async (props: { email: string; url: string; name: stri
     throw err; // re-throw the error so the caller can handle it
   }
 };
-export { sendMail, sendConfirmBooking ,sendMailResetPass};
+export { sendMail, sendConfirmBooking, sendMailResetPass };
