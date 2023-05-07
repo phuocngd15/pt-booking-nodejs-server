@@ -39,9 +39,17 @@ const customerRoute = [
     id: 'Home',
   },
   {
+    path: '/booking',
+    id: 'BookingsView',
+  },
+  {
     path: '/calendar',
     id: 'CusCalendar',
   },
+  {
+    path: '/profile',
+    id: 'Profile',
+  }
 ];
 const adminRoute = [
   {

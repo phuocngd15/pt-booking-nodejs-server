@@ -8,6 +8,7 @@ import serviceProgramsRouter from '../modules/servicePrograms/servicePrograms.ro
 import sessionRouter from '../modules/sessionsBK/session.router';
 import mailRouter from '../modules/mail/mail.router';
 import authRouters from '../modules/authentication/auth.router';
+import imagesRouter from "../modules/cloudinary/images.router";
 const apis = express.Router();
 
 const defaultRoutes = [
@@ -42,6 +43,10 @@ const defaultRoutes = [
   {
     path: '/mail',
     route: mailRouter,
+  },
+  {
+    path: '/images',
+    route: imagesRouter,
   },
 ];
 
