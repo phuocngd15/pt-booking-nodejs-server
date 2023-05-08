@@ -47,3 +47,18 @@ export const deletedUserController = async (req: Request, res: Response): Promis
   const deletedUser = await usersService.deleteUser(id);
   res.json(deletedUser);
 };
+
+export const getUserByEmail = async (req: Request, res: Response): Promise<void> => {
+  console.log('req', req.params);
+  try {
+    const email = req.params.email;
+    const user = await usersService.getUserByEmail(email);
+    if (!user) {
+      res.status(404).json({ message: 'User not found' });
+    } else {
+      res.status(200).json(user);
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};

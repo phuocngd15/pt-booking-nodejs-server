@@ -6,7 +6,10 @@ import { IUser } from './interface';
 const userSchema = new mongoose.Schema<IUser>(
   {
     fullName: String,
-    gender: String,
+    gender:  {
+        type: String,
+        default: undefined
+    },
     phone: {
       type: String,
       unique: true,
@@ -18,7 +21,10 @@ const userSchema = new mongoose.Schema<IUser>(
       required: true,
     },
     birthday: Date,
-    avatar: String,
+      avatar: {
+          type: String,
+          default: undefined
+      },
     createdAt: {
       type: Date,
       default: Date.now,
@@ -26,7 +32,10 @@ const userSchema = new mongoose.Schema<IUser>(
     //account: { type: Schema.Types.ObjectId, ref: 'Account', required: true },
     account: { type: Schema.Types.ObjectId, ref: 'Account' },
     uuid: String,
-    type: String,
+      type: {
+          type: String,
+          default: 'newUser'
+      },
     role: String,
   },
   {

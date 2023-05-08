@@ -1,5 +1,3 @@
-// users.service.ts
-
 import {
   create,
   findAll,
@@ -10,6 +8,8 @@ import {
   findByEmail,
 } from './users.repository';
 import { IUser } from '../dbModels/interface';
+import UserDoc from "../dbModels/users.model";
+import AccountModel from "../dbModels/accounts.model";
 
 class UsersService {
   public async createUser(user: Partial<IUser>): Promise<IUser> {
@@ -18,6 +18,14 @@ class UsersService {
 
   public async getUserById(id: string): Promise<IUser | null> {
     return await findById(id);
+  }
+
+  public async getUserByEmail(email: string): Promise<IUser | null> {
+    if (!email) {
+      return null;
+    }
+    const user = await UserDoc.findOne({ email: email }).exec();
+    return user ? user.toObject() : null;
   }
 
   public async findUsersByUUID(uuids: string[]): Promise<IUser[] | null> {

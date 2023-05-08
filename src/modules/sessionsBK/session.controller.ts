@@ -33,12 +33,22 @@ export const SessionController = {
 
       // If user doesn't exist, create new user with type "newUser"
       if (!user) {
-        user = await userService.createUser({
+        const newUser: IUser ={
+          _id: undefined,
+          account: undefined,
+          address: "",
+          avatar: "",
+          birthday: undefined,
+          createdAt: undefined,
+          gender: "",
+          role: "",
+          uuid: "",
           fullName: cusName,
           email: cusEmail,
           phone: cusPhone,
-          type: 'newUser',
-        });
+          type: 'newUser'
+        }
+        user = await userService.createUser(newUser);
       }
 
       // Get user UUID
