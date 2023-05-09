@@ -44,6 +44,7 @@ export interface IUser {
   uuid: string;
   type: string;
   role: string;
+  introduction:string;
 }
 
 export interface ITrainer extends IUser {

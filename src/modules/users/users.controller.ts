@@ -30,16 +30,26 @@ export const getUserController = async (req: Request, res: Response): Promise<vo
 };
 
 export const createUserController = async (req: Request, res: Response): Promise<void> => {
-  const user: IUser = req.body;
-  const newUser = await usersService.createUser(user);
-  res.json(newUser);
+  try {
+    const user: IUser = req.body;
+    const newUser = await usersService.createUser(user);
+    res.json(newUser);
+  }
+  catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
 export const updateUserController = async (req: Request, res: Response): Promise<void> => {
-  const id = req.params.id;
-  const user: IUser = req.body;
-  const updatedUser = await usersService.updateUser(id, user);
-  res.json(updatedUser);
+  try {
+    const id = req.params.id;
+    const user: IUser = req.body;
+    const updatedUser = await usersService.updateUser(id, user);
+    res.json(updatedUser);
+  }
+  catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
 export const deletedUserController = async (req: Request, res: Response): Promise<void> => {

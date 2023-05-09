@@ -11,9 +11,7 @@ const userSchema = new mongoose.Schema<IUser>(
         default: undefined
     },
     phone: {
-      type: String,
-      unique: true,
-      required: true,
+      type: String
     },
     email: {
       type: String,
@@ -37,6 +35,7 @@ const userSchema = new mongoose.Schema<IUser>(
           default: 'newUser'
       },
     role: String,
+    introduction:String
   },
   {
     minimize: false,

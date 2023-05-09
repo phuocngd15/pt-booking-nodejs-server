@@ -46,7 +46,8 @@ export const SessionController = {
           fullName: cusName,
           email: cusEmail,
           phone: cusPhone,
-          type: 'newUser'
+          type: 'newUser',
+          introduction: ''
         }
         user = await userService.createUser(newUser);
       }

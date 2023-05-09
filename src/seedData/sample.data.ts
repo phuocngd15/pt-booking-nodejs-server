@@ -204,6 +204,7 @@ function generateTrainerData(count: number): Partial<ITrainer>[] {
       rate: Math.floor(Math.random() * 5) + 1,
       certificates: [`Certificate ${i}_1`, `Certificate ${i}_2`],
       skills: generateRandomSkills(),
+      avatar:'https://thumb.tildacdn.com/tild6138-6631-4463-b665-616433663138/-/format/webp/Stefan.jpg'
     };
 
     data.push(item);

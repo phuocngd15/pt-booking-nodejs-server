@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { IAccount } from '../dbModels/interface';
+import {IAccount, IUser} from '../dbModels/interface';
 import AccountsService from '../accounts/accounts.service';
 import { sendMailResetPass } from '../mail/mail.service';
 import ResetToken from '../dbModels/resetToken.model';
@@ -7,6 +7,7 @@ import AccountsModel from '../dbModels/accounts.model';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import bcrypt from 'bcrypt';
+import UsersService from "../users/users.service";
 
 const secretKey = 'mysecretkey';
 
@@ -25,6 +26,7 @@ export interface UseInfoType {
 //     { id: 1, username: 'admin@gmail.com', password: '$2b$10$Y.0du4qroUxZRctUIwNjs.VTBz1BS98NJQ8UItyaxVXoFQEUlzLIm' } // password: "admin123"
 // ];
 const accountService = new AccountsService();
+const usersService = new UsersService();
 const router = Router();
 export const login = async (req, res) => {
   try {
@@ -32,15 +34,15 @@ export const login = async (req, res) => {
 
     // Find the user with the specified username
     // const user = users.find(u => u.username === username);
-    const user: IAccount | null = await accountService.getByUserName(username);
+    const acc: IAccount | null = await accountService.getByUserName(username);
 
     console.log('username, password ', req.body);
-    if (!user) {
+    if (!acc) {
       return res.status(401).json({ message: 'Invalid username or password' });
     }
-
+    const user : IUser | null = await usersService.findUserByEmail(acc.username)
     // Compare the password hash to the submitted password
-    bcrypt.compare(password, user.password, (err, result) => {
+    bcrypt.compare(password, acc.password, (err, result) => {
       if (err) {
         return res.status(500).json({ message: 'Internal server error' });
       }
@@ -48,18 +50,19 @@ export const login = async (req, res) => {
         return res.status(401).json({ message: 'Invalid username or password' });
       }
 
-      const token = jwt.sign({ userId: user._id }, secretKey, {
+      const token = jwt.sign({ userId: acc._id }, secretKey, {
         expiresIn: '1h',
       });
       res.json({
-        name: user.username,
-        userid: user._id,
-        email: user.username,
+        name: user.fullName,
+        userid: acc._id,
+        email: acc.username,
         signature: 'user.signature',
         introduction: 'user.introduction',
         title: 'user.title',
         token,
-        power: user.power,
+        power: acc.power,
+        profile: user
       });
     });
   } catch (err) {}
@@ -87,8 +90,16 @@ export const register = async (req, res) => {
       username,
       password: hashedPassword,
     });
+
+    const newUserInfo= await usersService.createUser({
+      email: username,
+      gender:'',
+      phone:'',
+      account:newAccount._id,
+      avatar:'https://bootdey.com/img/Content/avatar/avatar7.png'
+    })
     const result = {
-      data: newAccount,
+      data: {acc: newAccount, profile:newUserInfo},
       code: 1,
       message: 'Account created successfully',
     };
