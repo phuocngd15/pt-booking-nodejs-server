@@ -35,8 +35,8 @@ const power = [
 ];
 const customerRoute = [
   {
-    path: '/home',
-    id: 'Home',
+    path: '/loggedCusHome',
+    id: 'loggedCusHome',
   },
   {
     path: '/booking',
@@ -91,7 +91,16 @@ const adminRoute = [
     id: 'AccountsManagement',
   },
 ];
-
+const trainerRoute=[
+  {
+    path: '/calendar',
+    id: 'TrainerCalendar',
+  },
+  {
+    path: '/profile',
+    id: 'Profile',
+  }
+]
 export const getRoute = async (req, res, next) => {
   try {
     console.log('getRoute');
@@ -105,9 +114,9 @@ export const getRoute = async (req, res, next) => {
           message: 'ok',
         };
         break;
-      case 'test':
+      case 'trainer':
         result = {
-          data: [...power],
+          data: [...trainerRoute],
           code: 1,
           message: 'ok',
         };

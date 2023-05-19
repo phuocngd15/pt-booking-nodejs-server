@@ -9,19 +9,22 @@ import { IAccount, IProgram, ISession, ITrainer } from '../modules/dbModels/inte
 export const accountSeedingData: Partial<IAccount>[] = [
   {
     username: 'admin@gmail.com',
+    power:"admin",
     password: '$2b$10$Y.0du4qroUxZRctUIwNjs.VTBz1BS98NJQ8UItyaxVXoFQEUlzLIm',
   },
   {
-    username: 'user1',
-    password: 'password1',
+    username: 'secoder79@gmail.com',
+    power:"trainer",
+    password: '$2b$10$hEDgkozaTWJmz.N.nHTwxu8T745D708z2bc.L8gMUadcYKGRx3yPO',
   },
   {
-    username: 'user2',
-    password: 'password2',
+    username: 'secoder39@gmail.com',
+    power:"customer",
+    password: '$2b$10$hEDgkozaTWJmz.N.nHTwxu8T745D708z2bc.L8gMUadcYKGRx3yPO',
   },
 ];
 
-export const userSeedingData: Partial<ITrainer>[] = generateTrainerData(10);
+export const trainerSeedingData: Partial<ITrainer>[] = generateTrainerData(1);
 
 //     [
 //     {

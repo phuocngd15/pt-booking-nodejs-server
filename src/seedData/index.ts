@@ -10,7 +10,7 @@ import AccountModel, { collectionAccount } from '../modules/dbModels/accounts.mo
 import ProgramModel, { collectionProgram } from '../modules/dbModels/servicePrograms.model';
 import {
   accountSeedingData,
-  userSeedingData,
+  trainerSeedingData,
   serviceProgramsSeedingData,
   SessionsAbleMockData,
 } from './sample.data';
@@ -34,21 +34,19 @@ export const SeedingData = async () => {
     await removeAllDataFromCollection(collectionProgram.toLowerCase());
     await removeAllDataFromCollection(collectionSession.toLowerCase());
 
+    //add 3 account
     const accounts = await AccountModel.insertMany(accountSeedingData);
-    accounts.forEach((e, index) => {
-      userSeedingData[index].account = e.id;
-      userSeedingData[index].uuid = `trainer_${e.id}`;
 
-      serviceProgramsSeedingData[0].responsibleEmployees.push(`trainer_${e.id}`);
-    });
+    // complete info trainer
+    const dataTrainer1=accounts[1];
+    trainerSeedingData[1].account=dataTrainer1.id
+    trainerSeedingData[1].uuid = `trainer_${dataTrainer1.id}`;
+    serviceProgramsSeedingData[0].responsibleEmployees.push(`trainer_${dataTrainer1.id}`);
 
-    accounts.forEach((e, index) => {
-      userSeedingData[index].account = e.id;
-    });
     SessionsAbleMockData.forEach((e) => {
-      e.trainerUUID = userSeedingData[0].uuid;
+      e.trainerUUID = trainerSeedingData[1].uuid;
     });
-    await TrainersModel.insertMany(userSeedingData);
+    await TrainersModel.insertMany(trainerSeedingData);
     await ProgramModel.insertMany(serviceProgramsSeedingData);
     await SessionModel.insertMany(SessionsAbleMockData);
 

@@ -8,7 +8,7 @@ import { StarBot } from './loaders/botOne.loader';
 LoadConfig()
   .then(LoadWinston)
   .then(ConnectDB)
-  .then(SeedingData)
+ // .then(SeedingData)
   .then(StartApp)
   //.then((app)=>StarBot(app))
   .catch((error) => console.log('Application is crashed: ' + error));
