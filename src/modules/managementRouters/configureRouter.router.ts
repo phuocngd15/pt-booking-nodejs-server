@@ -49,7 +49,7 @@ const customerRoute = [
   {
     path: '/profile',
     id: 'Profile',
-  }
+  },
 ];
 const adminRoute = [
   {
@@ -91,7 +91,7 @@ const adminRoute = [
     id: 'AccountsManagement',
   },
 ];
-const trainerRoute=[
+const trainerRoute = [
   {
     path: '/calendar',
     id: 'TrainerCalendar',
@@ -99,8 +99,8 @@ const trainerRoute=[
   {
     path: '/profile',
     id: 'Profile',
-  }
-]
+  },
+];
 export const getRoute = async (req, res, next) => {
   try {
     console.log('getRoute');

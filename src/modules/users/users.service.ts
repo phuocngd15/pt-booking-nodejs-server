@@ -8,8 +8,8 @@ import {
   findByEmail,
 } from './users.repository';
 import { IUser } from '../dbModels/interface';
-import UserDoc from "../dbModels/users.model";
-import AccountModel from "../dbModels/accounts.model";
+import UserDoc from '../dbModels/users.model';
+import AccountModel from '../dbModels/accounts.model';
 
 class UsersService {
   public async createUser(user: Partial<IUser>): Promise<IUser> {

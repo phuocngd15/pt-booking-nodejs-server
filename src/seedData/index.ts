@@ -38,13 +38,13 @@ export const SeedingData = async () => {
     const accounts = await AccountModel.insertMany(accountSeedingData);
 
     // complete info trainer
-    const dataTrainer1=accounts[1];
-    trainerSeedingData[1].account=dataTrainer1.id
-    trainerSeedingData[1].uuid = `trainer_${dataTrainer1.id}`;
+    const dataTrainer1 = accounts[1];
+    trainerSeedingData[0].account = dataTrainer1.id;
+    trainerSeedingData[0].uuid = `trainer_${dataTrainer1.id}`;
     serviceProgramsSeedingData[0].responsibleEmployees.push(`trainer_${dataTrainer1.id}`);
 
     SessionsAbleMockData.forEach((e) => {
-      e.trainerUUID = trainerSeedingData[1].uuid;
+      e.trainerUUID = trainerSeedingData[0].uuid;
     });
     await TrainersModel.insertMany(trainerSeedingData);
     await ProgramModel.insertMany(serviceProgramsSeedingData);

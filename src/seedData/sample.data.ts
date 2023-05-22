@@ -9,47 +9,76 @@ import { IAccount, IProgram, ISession, ITrainer } from '../modules/dbModels/inte
 export const accountSeedingData: Partial<IAccount>[] = [
   {
     username: 'admin@gmail.com',
-    power:"admin",
+    power: 'admin',
     password: '$2b$10$Y.0du4qroUxZRctUIwNjs.VTBz1BS98NJQ8UItyaxVXoFQEUlzLIm',
   },
   {
     username: 'secoder79@gmail.com',
-    power:"trainer",
+    power: 'trainer',
     password: '$2b$10$hEDgkozaTWJmz.N.nHTwxu8T745D708z2bc.L8gMUadcYKGRx3yPO',
   },
   {
     username: 'secoder39@gmail.com',
-    power:"customer",
+    power: 'customer',
     password: '$2b$10$hEDgkozaTWJmz.N.nHTwxu8T745D708z2bc.L8gMUadcYKGRx3yPO',
   },
 ];
 
-export const trainerSeedingData: Partial<ITrainer>[] = generateTrainerData(1);
+// export const trainerSeedingData: Partial<ITrainer>[] = generateTrainerData(1);
+export const trainerSeedingData: Partial<ITrainer>[] = [
+  {
+    fullName: 'Jack',
+    gender: 'male',
+    phone: '937536543',
+    email: 'secoder79@example.com',
+    birthday: new Date('1992-01-11'),
+    avatar:
+      'https://thumb.tildacdn.com/tild6138-6631-4463-b665-616433663138/-/format/webp/Stefan.jpg',
 
-//     [
-//     {
-//         fullName: 'nguyenduyphuoc',
-//         gender: 'male',
-//         phone: '0937537546',
-//         email: 'john.doe@example.com',
-//         birthday: new Date('1992-01-11'),
-//         avatar: 'https://example.com/avatar.png',
-//         account: accountSeedingData[0]._id,
-//         role: 'trainer',
-//         uuid: 'trainer001'
-//     },
-//     {
-//         fullName: 'nguyenduy',
-//         gender: 'male',
-//         phone: '0937537548',
-//         email: 'secoder39@gmail.com',
-//         birthday: new Date('1990-01-01'),
-//         avatar: 'https://example.com/avatar.png',
-//         account: accountSeedingData[1]._id,
-//         role: 'trainer',
-//         uuid: 'trainer001'
-//     }
-// ];
+    avatars: [
+      'https://thumb.tildacdn.com/tild6138-6631-4463-b665-616433663138/-/format/webp/Stefan.jpg',
+      'https://thumb.tildacdn.com/tild6538-3933-4434-a135-653364323732/-/cover/720x960/center/center/-/format/webp/20220408_115419.jpg',
+      'https://thumb.tildacdn.com/tild3862-6239-4531-b638-316262643163/-/cover/720x960/center/center/-/format/webp/PHOTO-2021-10-10-07-.jpg',
+    ],
+    introduction: "I'll share my knowledge to help you achieve your goals, guide and motivate you.",
+    role: 'trainer',
+    certificates: ['Certificate 0_1', 'Certificate 0_2'],
+    yearExperience: 3,
+    skills: ['Strength', 'Nutrutiology', 'Weight loss'],
+  },
+  {
+    fullName: 'Jacob',
+    gender: 'male',
+    phone: '0937537548',
+    email: 'secoder39@gmail.com',
+    birthday: new Date('1990-01-01'),
+    avatar:
+      'https://thumb.tildacdn.com/tild6534-6531-4535-a433-626230306530/-/cover/720x960/center/center/-/format/webp/19-min.jpg',
+    avatars: [
+      'https://thumb.tildacdn.com/tild6534-6531-4535-a433-626230306530/-/cover/720x960/center/center/-/format/webp/19-min.jpg',
+      'https://thumb.tildacdn.com/tild3930-3434-4263-b738-666562353232/-/cover/720x960/center/center/-/format/webp/12-min.jpg',
+    ],
+    role: 'trainer',
+    yearExperience: 2,
+    skills: ['Strength', 'Nutrutiology', 'Weight loss'],
+  },
+  {
+    fullName: 'RITa',
+    gender: 'female',
+    phone: '0937537542',
+    email: 'secoder79@gmail.com',
+    birthday: new Date('1992-01-01'),
+    avatar:
+      'https://thumb.tildacdn.com/tild6332-6466-4366-b962-633838346536/-/cover/720x960/center/center/-/format/webp/DSC05829.JPG',
+    avatars: [
+      'https://thumb.tildacdn.com/tild6332-6466-4366-b962-633838346536/-/cover/720x960/center/center/-/format/webp/DSC05829.JPG',
+      'https://thumb.tildacdn.com/tild3034-3932-4435-b836-326530393136/-/cover/720x960/center/center/-/format/webp/DSC05751.JPG',
+    ],
+    role: 'trainer',
+    yearExperience: 4,
+    skills: ['Hatha Yoga', 'Vinyasa Yoga', 'Meditation', 'Yoga', 'Functional'],
+  },
+];
 
 export const serviceProgramsSeedingData: Partial<IProgram>[] = [
   {
@@ -207,7 +236,8 @@ function generateTrainerData(count: number): Partial<ITrainer>[] {
       rate: Math.floor(Math.random() * 5) + 1,
       certificates: [`Certificate ${i}_1`, `Certificate ${i}_2`],
       skills: generateRandomSkills(),
-      avatar:'https://thumb.tildacdn.com/tild6138-6631-4463-b665-616433663138/-/format/webp/Stefan.jpg'
+      avatar:
+        'https://thumb.tildacdn.com/tild6138-6631-4463-b665-616433663138/-/format/webp/Stefan.jpg',
     };
 
     data.push(item);

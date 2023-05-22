@@ -1,7 +1,8 @@
 import express from 'express';
 import {
   createUserController,
-  deletedUserController, getUserByEmail,
+  deletedUserController,
+  getUserByEmail,
   getUserController,
   getUsersController,
   updateUserController,
@@ -18,4 +19,4 @@ userRouter.put('/:id', updateUserController);
 userRouter.put('/profile/:id', updateUserController);
 userRouter.delete('/:id', deletedUserController);
 
-export default userRouter ;
+export default userRouter;

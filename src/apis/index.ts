@@ -1,5 +1,5 @@
 import express from 'express';
-import  userRouter  from '../modules/users/users.router';
+import userRouter from '../modules/users/users.router';
 import accountRouter from '../modules/accounts/accounts.router';
 import { botAPI } from '../modules/chatbotTelegram/subscribeBotOne';
 
@@ -8,7 +8,7 @@ import serviceProgramsRouter from '../modules/servicePrograms/servicePrograms.ro
 import sessionRouter from '../modules/sessionsBK/session.router';
 import mailRouter from '../modules/mail/mail.router';
 import authRouters from '../modules/authentication/auth.router';
-import imagesRouter from "../modules/cloudinary/images.router";
+import imagesRouter from '../modules/cloudinary/images.router';
 const apis = express.Router();
 
 const defaultRoutes = [

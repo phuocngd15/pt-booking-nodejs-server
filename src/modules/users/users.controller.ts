@@ -34,8 +34,7 @@ export const createUserController = async (req: Request, res: Response): Promise
     const user: IUser = req.body;
     const newUser = await usersService.createUser(user);
     res.json(newUser);
-  }
-  catch (err) {
+  } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
@@ -44,10 +43,10 @@ export const updateUserController = async (req: Request, res: Response): Promise
   try {
     const id = req.params.id;
     const user: IUser = req.body;
+    console.log('updateUserController', user);
     const updatedUser = await usersService.updateUser(id, user);
     res.json(updatedUser);
-  }
-  catch (err) {
+  } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };

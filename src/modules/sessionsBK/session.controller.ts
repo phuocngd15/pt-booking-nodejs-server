@@ -33,28 +33,29 @@ export const SessionController = {
 
       // If user doesn't exist, create new user with type "newUser"
       if (!user) {
-        const newUser: IUser ={
+        const newUser: IUser = {
           _id: undefined,
           account: undefined,
-          address: "",
-          avatar: "",
+          address: '',
+          avatar: '',
           birthday: undefined,
           createdAt: undefined,
-          gender: "",
-          role: "",
-          uuid: "",
+          gender: '',
+          role: 'customer',
+          uuid: '',
           fullName: cusName,
           email: cusEmail,
           phone: cusPhone,
-          type: 'newUser',
-          introduction: ''
-        }
+          type: 'new',
+          introduction: '',
+        };
         user = await userService.createUser(newUser);
       }
 
       // Get user UUID
       const cusUUID = `customer_${user._id}`;
-
+      user.uuid=cusUUID;
+      await userService.updateUser(user._id.toString(),user);
       let trainerUUIDtoUse = trainerUUID;
 
       // If trainerUUID is specified, check if it's a valid trainer UUID

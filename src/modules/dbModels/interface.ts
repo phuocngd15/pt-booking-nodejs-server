@@ -7,6 +7,7 @@ export interface IAccount {
   power: string;
   createdAt: Date;
   key: string;
+  status: string;
 }
 
 export interface IProgram {
@@ -44,14 +45,15 @@ export interface IUser {
   uuid: string;
   type: string;
   role: string;
-  introduction:string;
+  introduction: string;
 }
 
 export interface ITrainer extends IUser {
   skills: string[];
-
   rate: number;
   certificates: string[];
+  avatars: string[];
+  yearExperience: number;
 }
 
 export interface ISession extends Document {

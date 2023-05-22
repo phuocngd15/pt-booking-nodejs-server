@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema<ITrainer>(
     },
     birthday: Date,
     avatar: String,
+    avatars: { type: [String] },
     createdAt: {
       type: Date,
       default: Date.now,
@@ -29,8 +30,10 @@ const userSchema = new mongoose.Schema<ITrainer>(
     role: String,
 
     skills: { type: [String] },
-
+    introduction: String,
     certificates: { type: [String] },
+    yearExperience: Number,
+    rate: Number,
   },
   {
     minimize: false,
