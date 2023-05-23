@@ -39,6 +39,10 @@ const customerRoute = [
     id: 'loggedCusHome',
   },
   {
+    path: '/squatCounter',
+    id: 'SquatCounter',
+  },
+  {
     path: '/booking',
     id: 'BookingsView',
   },

@@ -4,7 +4,8 @@
 // import {IProgram} from "../modules/dbModels/servicePrograms.model";
 // import {ITrainer} from "../modules/dbModels/trainers.model";
 
-import { IAccount, IProgram, ISession, ITrainer } from '../modules/dbModels/interface';
+import {IAccount, IProgram, ISession, ITrainer, IUser} from '../modules/dbModels/interface';
+import mongoose from "mongoose";
 //pwd:admin123 , admin@gmail.com
 export const accountSeedingData: Partial<IAccount>[] = [
   {
@@ -18,7 +19,7 @@ export const accountSeedingData: Partial<IAccount>[] = [
     password: '$2b$10$hEDgkozaTWJmz.N.nHTwxu8T745D708z2bc.L8gMUadcYKGRx3yPO',
   },
   {
-    username: 'secoder39@gmail.com',
+    username: 'secoder7979@gmail.com',
     power: 'customer',
     password: '$2b$10$hEDgkozaTWJmz.N.nHTwxu8T745D708z2bc.L8gMUadcYKGRx3yPO',
   },
@@ -79,6 +80,20 @@ export const trainerSeedingData: Partial<ITrainer>[] = [
     skills: ['Hatha Yoga', 'Vinyasa Yoga', 'Meditation', 'Yoga', 'Functional'],
   },
 ];
+
+export const userSeedingData: Partial<IUser>[]=[
+  {
+    fullName: "Khach Hang A",
+    gender: "male",
+    phone: "0937536545",
+    email: "secoder7979@gmail.com",
+    address: "",
+    birthday: new Date('1992-01-11'),
+    avatar: "https://sm.ign.com/ign_ap/cover/a/avatar-gen/avatar-generations_hugw.jpg",
+    role: 'customer',
+    introduction: 'hi i am a good man',
+  }
+]
 
 export const serviceProgramsSeedingData: Partial<IProgram>[] = [
   {
