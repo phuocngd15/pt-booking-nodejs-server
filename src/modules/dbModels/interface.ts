@@ -10,6 +10,18 @@ export interface IAccount {
   status: string;
 }
 
+export interface IActivity {
+  _id: mongoose.Types.ObjectId;
+  name: string;
+  des: string;
+  reps: string;
+  sets: string;
+  level?:string;
+  createdAt?: Date;
+  duration?: string;
+  completedReps?:string
+}
+
 export interface IProgram {
   _id: mongoose.Types.ObjectId;
   serviceName: string;

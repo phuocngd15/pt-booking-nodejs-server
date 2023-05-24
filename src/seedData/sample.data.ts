@@ -4,7 +4,7 @@
 // import {IProgram} from "../modules/dbModels/servicePrograms.model";
 // import {ITrainer} from "../modules/dbModels/trainers.model";
 
-import {IAccount, IProgram, ISession, ITrainer, IUser} from '../modules/dbModels/interface';
+import {IAccount, IActivity, IProgram, ISession, ITrainer, IUser} from '../modules/dbModels/interface';
 import mongoose from "mongoose";
 //pwd:admin123 , admin@gmail.com
 export const accountSeedingData: Partial<IAccount>[] = [
@@ -152,6 +152,23 @@ export const serviceProgramsSeedingData: Partial<IProgram>[] = [
     responsibleEmployees: [],
     description: 'level intermediate',
   },
+];
+
+export const activitiesSeedingData: Partial<IActivity>[] =[
+  {
+    name:"squat",
+    des: "basic squat",
+    level:"basic",
+    sets:"1",
+    reps:"12",
+  },
+  {
+    name:"squat",
+    des: "medium squat",
+    level:"basic",
+    sets:"1",
+    reps:"12",
+  }
 ];
 
 export const SessionsAbleMockData: Partial<ISession>[] = [

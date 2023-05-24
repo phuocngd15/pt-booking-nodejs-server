@@ -12,12 +12,13 @@ import {
   accountSeedingData,
   trainerSeedingData,
   serviceProgramsSeedingData,
-  SessionsAbleMockData, userSeedingData,
+  SessionsAbleMockData, userSeedingData, activitiesSeedingData,
 } from './sample.data';
 import SessionModel, {
   collectionName as collectionSession,
 } from '../modules/dbModels/session.model';
 import UsersModel, {collectionName as collectionUser} from "../modules/dbModels/users.model";
+import ActivitiesTaskModel, {collectionName as collectionActivities} from "../modules/dbModels/activitiesTask.model";
 
 async function removeAllDataFromCollection(collectionName: string): Promise<void> {
   try {
@@ -35,6 +36,8 @@ export const SeedingData = async () => {
     await removeAllDataFromCollection(collectionProgram.toLowerCase());
     await removeAllDataFromCollection(collectionSession.toLowerCase());
     await removeAllDataFromCollection(collectionUser.toLowerCase());
+    await removeAllDataFromCollection(collectionUser.toLowerCase());
+    await removeAllDataFromCollection(collectionActivities.toLowerCase());
 
     //add 3 account
     const accounts = await AccountModel.insertMany(accountSeedingData);
@@ -52,7 +55,8 @@ export const SeedingData = async () => {
     userSeedingData[0].account=accounts[2].id
     await UsersModel.insertMany(userSeedingData);
     await ProgramModel.insertMany(serviceProgramsSeedingData);
-    await SessionModel.insertMany(SessionsAbleMockData);
+    await ActivitiesTaskModel.insertMany(activitiesSeedingData);
+
 
     logger.info('Data seeded successfully');
   } catch (e) {
