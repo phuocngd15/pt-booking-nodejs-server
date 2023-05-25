@@ -20,6 +20,8 @@ export interface IActivity {
   createdAt?: Date;
   duration?: string;
   completedReps?:string
+  user: IUser["_id"],
+  createByTrainer: ITrainer["_id"]
 }
 
 export interface IProgram {

@@ -6,8 +6,8 @@ const activitiesTaskSchema = new Schema<IActivity>({
     name: String,
     des: String,
     reps: String,
+    sets: String,
     completedReps: String,
-    sets: Date,
     level:{
         type: String,
         default: 'basic',
@@ -19,7 +19,9 @@ const activitiesTaskSchema = new Schema<IActivity>({
     duration: {
         type: String,
         default: '',
-    }
+    },
+    user: { type: Schema.Types.ObjectId, ref: 'users' },
+    createByTrainer: { type: Schema.Types.ObjectId, ref: 'trainers' },
 });
 export const collectionName = 'activitiesTask';
 export default mongoose.model<IActivity>(collectionName, activitiesTaskSchema, collectionName);

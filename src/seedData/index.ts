@@ -53,8 +53,19 @@ export const SeedingData = async () => {
     });
     await TrainersModel.insertMany(trainerSeedingData);
     userSeedingData[0].account=accounts[2].id
-    await UsersModel.insertMany(userSeedingData);
+
+    const users = await UsersModel.insertMany(userSeedingData);
+
+
     await ProgramModel.insertMany(serviceProgramsSeedingData);
+
+    // add activities to user
+    activitiesSeedingData[0].user=users[0].id;
+    activitiesSeedingData[1].user=users[0].id;
+    // who Trainer create activities for user
+    activitiesSeedingData[0].createByTrainer=dataTrainer1.id;
+    activitiesSeedingData[1].createByTrainer=dataTrainer1.id;
+
     await ActivitiesTaskModel.insertMany(activitiesSeedingData);
 
 

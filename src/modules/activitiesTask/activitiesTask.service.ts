@@ -6,6 +6,10 @@ export default class ActivitiesTaskService{
         const result = await activitiesTaskModel.find();
         return result;
     }
+    public async getByUserid(userid:string): Promise<IActivity[]> {
+        const result = await activitiesTaskModel.find({ user: userid }).exec();
+        return result;
+    }
     public async completeOne(id,activity:IActivity ): Promise<IActivity> {
         const result = await activitiesTaskModel.findByIdAndUpdate(id, activity, { new: true }).exec();
         return result;

@@ -1,8 +1,8 @@
 import {Request, Response, Router} from 'express';
-import {controllerGetActivities, controllerUpdateActivities} from "./activitiesTask.controller";
+import {controllerGetActivitiesOfUser, controllerUpdateActivities} from "./activitiesTask.controller";
 
 const router = Router();
-router.get('/', controllerGetActivities);
+router.get('/user/:id', controllerGetActivitiesOfUser);
 router.put('/complete/:id', controllerUpdateActivities);
 
 export default router;

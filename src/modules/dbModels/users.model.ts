@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema<IUser>(
       default: Date.now,
     },
     //account: { type: Schema.Types.ObjectId, ref: 'Account', required: true },
-    account: { type: Schema.Types.ObjectId, ref: 'Account' },
+    account: { type: Schema.Types.ObjectId, ref: 'account' },
     uuid: String,
     type: {
       type: String,

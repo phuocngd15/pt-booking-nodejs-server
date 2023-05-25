@@ -4,7 +4,17 @@ import {IActivity, IUser} from "../dbModels/interface";
 
 
 const service= new ActivitiesTaskService();
-export const controllerGetActivities = async (req: Request, res: Response) => {
+export const controllerGetActivitiesOfUser = async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id;
+        const activities = await service.getByUserid(id);
+        res.json(activities);
+    }
+    catch (e) {
+        res.status(404).send("system error")
+    }
+};
+export const controllerGetActivitiesByTrainerCreate = async (req: Request, res: Response) => {
     try {
         const activities = await service.getAll();
         res.json(activities);

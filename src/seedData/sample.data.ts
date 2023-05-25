@@ -159,14 +159,14 @@ export const activitiesSeedingData: Partial<IActivity>[] =[
     name:"squat",
     des: "basic squat",
     level:"basic",
-    sets:"1",
+    sets:"2",
     reps:"12",
   },
   {
     name:"squat",
     des: "medium squat",
     level:"basic",
-    sets:"1",
+    sets:"2",
     reps:"12",
   }
 ];
