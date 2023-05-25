@@ -10,7 +10,11 @@ export default router;
 */
 
 import { Router } from 'express';
-import { getTrainersByGroupController, updateTrainerController,getTrainers } from './trainers.controller';
+import {
+  getTrainersByGroupController,
+  updateTrainerController,
+  getTrainers,
+} from './trainers.controller';
 const router = Router();
 
 router.get('/', getTrainers);

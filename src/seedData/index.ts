@@ -12,13 +12,17 @@ import {
   accountSeedingData,
   trainerSeedingData,
   serviceProgramsSeedingData,
-  SessionsAbleMockData, userSeedingData, activitiesSeedingData,
+  SessionsAbleMockData,
+  userSeedingData,
+  activitiesSeedingData,
 } from './sample.data';
 import SessionModel, {
   collectionName as collectionSession,
 } from '../modules/dbModels/session.model';
-import UsersModel, {collectionName as collectionUser} from "../modules/dbModels/users.model";
-import ActivitiesTaskModel, {collectionName as collectionActivities} from "../modules/dbModels/activitiesTask.model";
+import UsersModel, { collectionName as collectionUser } from '../modules/dbModels/users.model';
+import ActivitiesTaskModel, {
+  collectionName as collectionActivities,
+} from '../modules/dbModels/activitiesTask.model';
 
 async function removeAllDataFromCollection(collectionName: string): Promise<void> {
   try {
@@ -31,13 +35,12 @@ async function removeAllDataFromCollection(collectionName: string): Promise<void
 
 export const SeedingData = async () => {
   try {
-    await removeAllDataFromCollection(collectionAccount.toLowerCase());
-    await removeAllDataFromCollection(collectionTrainer.toLowerCase());
-    await removeAllDataFromCollection(collectionProgram.toLowerCase());
-    await removeAllDataFromCollection(collectionSession.toLowerCase());
-    await removeAllDataFromCollection(collectionUser.toLowerCase());
-    await removeAllDataFromCollection(collectionUser.toLowerCase());
-    await removeAllDataFromCollection(collectionActivities.toLowerCase());
+    await removeAllDataFromCollection(collectionAccount);
+    await removeAllDataFromCollection(collectionTrainer);
+    await removeAllDataFromCollection(collectionProgram);
+    await removeAllDataFromCollection(collectionSession);
+    await removeAllDataFromCollection(collectionUser);
+    await removeAllDataFromCollection(collectionActivities);
 
     //add 3 account
     const accounts = await AccountModel.insertMany(accountSeedingData);
@@ -52,22 +55,20 @@ export const SeedingData = async () => {
       e.trainerUUID = trainerSeedingData[0].uuid;
     });
     await TrainersModel.insertMany(trainerSeedingData);
-    userSeedingData[0].account=accounts[2].id
+    userSeedingData[0].account = accounts[2].id;
 
     const users = await UsersModel.insertMany(userSeedingData);
-
 
     await ProgramModel.insertMany(serviceProgramsSeedingData);
 
     // add activities to user
-    activitiesSeedingData[0].user=users[0].id;
-    activitiesSeedingData[1].user=users[0].id;
+    activitiesSeedingData[0].user = users[0].id;
+    activitiesSeedingData[1].user = users[0].id;
     // who Trainer create activities for user
-    activitiesSeedingData[0].createByTrainer=dataTrainer1.id;
-    activitiesSeedingData[1].createByTrainer=dataTrainer1.id;
+    activitiesSeedingData[0].createByTrainer = dataTrainer1.id;
+    activitiesSeedingData[1].createByTrainer = dataTrainer1.id;
 
     await ActivitiesTaskModel.insertMany(activitiesSeedingData);
-
 
     logger.info('Data seeded successfully');
   } catch (e) {

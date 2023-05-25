@@ -9,7 +9,7 @@ import sessionRouter from '../modules/sessionsBK/session.router';
 import mailRouter from '../modules/mail/mail.router';
 import authRouters from '../modules/authentication/auth.router';
 import imagesRouter from '../modules/cloudinary/images.router';
-import activitiesTaskRouter from "../modules/activitiesTask/activitiesTask.router";
+import activitiesTaskRouter from '../modules/activitiesTask/activitiesTask.router';
 
 const apis = express.Router();
 

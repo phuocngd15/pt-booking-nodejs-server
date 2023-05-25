@@ -14,14 +14,17 @@ export interface IActivity {
   _id: mongoose.Types.ObjectId;
   name: string;
   des: string;
-  reps: string;
-  sets: string;
-  level?:string;
+  reps: number;
+  sets: number;
+  level?: string;
   createdAt?: Date;
+  completeAt?: Date;
   duration?: string;
-  completedReps?:string
-  user: IUser["_id"],
-  createByTrainer: ITrainer["_id"]
+  completedReps?: string;
+  user: IUser['_id'];
+  createByTrainer: ITrainer['_id'];
+  imageDemo?: string;
+  state: string;
 }
 
 export interface IProgram {

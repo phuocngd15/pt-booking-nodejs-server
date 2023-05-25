@@ -9,7 +9,7 @@ const accountSchema = new Schema<IAccount>({
     type: Date,
     default: Date.now,
   },
-  status:{type:String,required: true, default: 'active'}
+  status: { type: String, required: true, default: 'active' },
 });
 export const collectionAccount = 'account';
 export default mongoose.model<IAccount>(collectionAccount, accountSchema, collectionAccount);

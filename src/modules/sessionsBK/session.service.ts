@@ -79,7 +79,10 @@ export const SessionService = {
       .lean()
       .exec();
     const trainers = await trainersModel.find().select('fullName uuid').lean().exec();
-    const customers = await usersModel.find({ uuid:  { $in: tickets.map(e=>e.customerUUID) } }).lean().exec();
+    const customers = await usersModel
+      .find({ uuid: { $in: tickets.map((e) => e.customerUUID) } })
+      .lean()
+      .exec();
 
     return tickets.map((ticket) => {
       const classroom = classrooms.find((c) => c.uuid === ticket.programUUID);
@@ -89,7 +92,7 @@ export const SessionService = {
         ...ticket,
         classroom: classroom || null,
         trainer: trainer || null,
-        customer: customer
+        customer: customer,
       };
     });
 

@@ -4,8 +4,15 @@
 // import {IProgram} from "../modules/dbModels/servicePrograms.model";
 // import {ITrainer} from "../modules/dbModels/trainers.model";
 
-import {IAccount, IActivity, IProgram, ISession, ITrainer, IUser} from '../modules/dbModels/interface';
-import mongoose from "mongoose";
+import {
+  IAccount,
+  IActivity,
+  IProgram,
+  ISession,
+  ITrainer,
+  IUser,
+} from '../modules/dbModels/interface';
+import mongoose from 'mongoose';
 //pwd:admin123 , admin@gmail.com
 export const accountSeedingData: Partial<IAccount>[] = [
   {
@@ -81,19 +88,19 @@ export const trainerSeedingData: Partial<ITrainer>[] = [
   },
 ];
 
-export const userSeedingData: Partial<IUser>[]=[
+export const userSeedingData: Partial<IUser>[] = [
   {
-    fullName: "Khach Hang A",
-    gender: "male",
-    phone: "0937536545",
-    email: "secoder7979@gmail.com",
-    address: "",
+    fullName: 'Khach Hang A',
+    gender: 'male',
+    phone: '0937536545',
+    email: 'secoder7979@gmail.com',
+    address: '',
     birthday: new Date('1992-01-11'),
-    avatar: "https://sm.ign.com/ign_ap/cover/a/avatar-gen/avatar-generations_hugw.jpg",
+    avatar: 'https://sm.ign.com/ign_ap/cover/a/avatar-gen/avatar-generations_hugw.jpg',
     role: 'customer',
     introduction: 'hi i am a good man',
-  }
-]
+  },
+];
 
 export const serviceProgramsSeedingData: Partial<IProgram>[] = [
   {
@@ -154,21 +161,25 @@ export const serviceProgramsSeedingData: Partial<IProgram>[] = [
   },
 ];
 
-export const activitiesSeedingData: Partial<IActivity>[] =[
+export const activitiesSeedingData: Partial<IActivity>[] = [
   {
-    name:"squat",
-    des: "basic squat",
-    level:"basic",
-    sets:"2",
-    reps:"12",
+    name: 'squat',
+    des: 'basic squat',
+    level: 'basic',
+    sets: 2,
+    reps: 12,
+    imageDemo:
+      'https://d31oxp44ddzkyk.cloudfront.net/source/exercise_img/0/39ce1cd8450e4e2aab7afd6be34d740e.gif',
   },
   {
-    name:"squat",
-    des: "medium squat",
-    level:"basic",
-    sets:"2",
-    reps:"12",
-  }
+    name: 'squat',
+    des: 'medium squat',
+    level: 'basic',
+    sets: 2,
+    reps: 12,
+    imageDemo:
+      'https://d31oxp44ddzkyk.cloudfront.net/source/exercise_img/0/39ce1cd8450e4e2aab7afd6be34d740e.gif',
+  },
 ];
 
 export const SessionsAbleMockData: Partial<ISession>[] = [
