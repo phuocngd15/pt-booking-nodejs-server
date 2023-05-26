@@ -58,11 +58,15 @@ export interface IUser {
   avatar: string;
   createdAt: Date;
   account: IAccount['_id'];
-
+  tags: string[];
   uuid: string;
   type: string;
   role: string;
   introduction: string;
+  age: number;
+  weight: number;
+  height: number;
+  tickets: ISession[];
 }
 
 export interface ITrainer extends IUser {
@@ -77,7 +81,7 @@ export interface ISession extends Document {
   startTime: Date;
   endTime: Date;
   trainerUUID?: string;
-  customerUUID?: string;
+  customerUUID?: IUser['_id'];
 
   programUUID: string;
 

@@ -48,12 +48,12 @@ export const SeedingData = async () => {
     // complete info trainer
     const dataTrainer1 = accounts[1];
     trainerSeedingData[0].account = dataTrainer1.id;
-    trainerSeedingData[0].uuid = `trainer_${dataTrainer1.id}`;
-    serviceProgramsSeedingData[0].responsibleEmployees.push(`trainer_${dataTrainer1.id}`);
+    trainerSeedingData[0].uuid = `${dataTrainer1.id}`;
+    serviceProgramsSeedingData[0].responsibleEmployees.push(`${dataTrainer1.id}`);
 
-    SessionsAbleMockData.forEach((e) => {
-      e.trainerUUID = trainerSeedingData[0].uuid;
-    });
+    // SessionsAbleMockData.forEach((e) => {
+    //   e.trainerUUID = trainerSeedingData[0].uuid;
+    // });
     await TrainersModel.insertMany(trainerSeedingData);
     userSeedingData[0].account = accounts[2].id;
 

@@ -185,7 +185,6 @@ export const activitiesSeedingData: Partial<IActivity>[] = [
 export const SessionsAbleMockData: Partial<ISession>[] = [
   {
     trainerUUID: '61e54cf88129b74cb25f6c55',
-    customerUUID: '61e54d068129b74cb25f6c56',
     startTime: new Date('2022-12-01T08:00:00.000Z'),
     endTime: new Date('2022-12-01T09:00:00.000Z'),
     status: 'confirmed',
@@ -194,7 +193,6 @@ export const SessionsAbleMockData: Partial<ISession>[] = [
   },
   {
     trainerUUID: '61e54cf88129b74cb25f6c55',
-    customerUUID: '61e54d198129b74cb25f6c59',
     startTime: new Date('2022-12-01T11:00:00.000Z'),
     endTime: new Date('2022-12-01T12:00:00.000Z'),
     status: 'confirmed',
@@ -203,7 +201,6 @@ export const SessionsAbleMockData: Partial<ISession>[] = [
   },
   {
     trainerUUID: '61e54cf88129b74cb25f6c55',
-    customerUUID: '61e54d228129b74cb25f6c5b',
     startTime: new Date('2022-12-01T14:00:00.000Z'),
     endTime: new Date('2022-12-01T15:00:00.000Z'),
     status: 'confirmed',
@@ -212,7 +209,6 @@ export const SessionsAbleMockData: Partial<ISession>[] = [
   },
   {
     trainerUUID: '61e54cf88129b74cb25f6c55',
-    customerUUID: '61e54d2d8129b74cb25f6c5d',
     startTime: new Date('2022-12-01T17:00:00.000Z'),
     endTime: new Date('2022-12-01T18:00:00.000Z'),
     status: 'confirmed',

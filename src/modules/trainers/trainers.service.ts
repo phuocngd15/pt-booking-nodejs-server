@@ -40,7 +40,7 @@ const getAllTrainers = async (): Promise<ITrainer[] | null> => {
 
 const getTrainerByUUID = async (uuid: string): Promise<ITrainer | null> => {
   try {
-    const trainers = await TrainerDoc.findOne({ uuid: uuid }).exec();
+    const trainers = await TrainerDoc.findById(uuid).exec();
 
     return trainers;
   } catch (error) {

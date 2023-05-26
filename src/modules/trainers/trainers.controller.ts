@@ -1,4 +1,9 @@
-import { findTrainerBySkills, getAllTrainers, updateTrainer } from './trainers.service';
+import {
+  findTrainerBySkills,
+  getAllTrainers,
+  getTrainerByUUID,
+  updateTrainer,
+} from './trainers.service';
 import { Request, Response } from 'express';
 import { ITrainer, IUser } from '../dbModels/interface';
 
@@ -66,4 +71,13 @@ const getTrainers = async (req: Request, res: Response): Promise<void> => {
     res.status(500).json({ message: err.message });
   }
 };
-export { getTrainersByGroupController, updateTrainerController, getTrainers };
+const getTrainerById = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const trainerId = req.params.trainerId;
+    const trainers = await getTrainerByUUID(trainerId);
+    res.json(trainers);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+export { getTrainersByGroupController, updateTrainerController, getTrainers, getTrainerById };

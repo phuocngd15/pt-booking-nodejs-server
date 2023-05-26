@@ -30,6 +30,7 @@ class UsersService {
 
   public async findUsersByUUID(uuids: string[]): Promise<IUser[] | null> {
     try {
+      if (!uuids.length) return [];
       const users = await findByUUId(uuids);
 
       return users;

@@ -33,7 +33,7 @@ export const SessionController = {
 
       // If user doesn't exist, create new user with type "newUser"
       if (!user) {
-        const newUser: IUser = {
+        const newUser: Partial<IUser> = {
           _id: undefined,
           account: undefined,
           address: '',
@@ -53,7 +53,7 @@ export const SessionController = {
       }
 
       // Get user UUID
-      const cusUUID = `customer_${user._id}`;
+      const cusUUID = `${user._id}`;
       user.uuid = cusUUID;
       await userService.updateUser(user._id.toString(), user);
       let trainerUUIDtoUse = trainerUUID;
@@ -75,7 +75,7 @@ export const SessionController = {
       const ticket = await SessionService.createTicket(
         programsUUID,
         trainerUUIDtoUse,
-        cusUUID,
+        user._id,
         date,
         time,
       );
@@ -164,7 +164,7 @@ export const SessionController = {
 
       if (uuid.includes('@gmail')) {
         user = await userService.findUserByEmail(uuid);
-        if (user) tickets = await SessionService.getTicketsByCustomerUUID(`customer_${user._id}`);
+        if (user) tickets = await SessionService.getTicketsByCustomerUUID(`${user._id}`);
       } else if (uuid) {
         tickets = await SessionService.getTicketByTicketUUID(uuid);
       }

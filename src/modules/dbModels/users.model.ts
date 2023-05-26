@@ -29,6 +29,7 @@ const userSchema = new mongoose.Schema<IUser>(
     },
     //account: { type: Schema.Types.ObjectId, ref: 'Account', required: true },
     account: { type: Schema.Types.ObjectId, ref: 'account' },
+    tickets: [{ type: Schema.Types.ObjectId, ref: 'sessions' }],
     uuid: String,
     type: {
       type: String,
@@ -36,7 +37,12 @@ const userSchema = new mongoose.Schema<IUser>(
     },
     role: String,
     introduction: String,
+    age: Number,
+    weight: Number,
+    height: Number,
+    tags: [{ type: String, default: [] }],
   },
+
   {
     minimize: false,
   },

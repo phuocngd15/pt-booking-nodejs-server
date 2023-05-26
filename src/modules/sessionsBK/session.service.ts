@@ -1,5 +1,5 @@
 import SessionModel from '../dbModels/session.model';
-import { ISession } from '../dbModels/interface';
+import { ISession, IUser } from '../dbModels/interface';
 import dayjs, { Dayjs } from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
@@ -46,7 +46,7 @@ export const SessionService = {
   async createTicket(
     programUUID: string,
     trainerUUID: string,
-    cusUUID: string,
+    cusUUID: IUser['_id'],
     date: Date,
     time: Date,
   ): Promise<ISession> {
@@ -87,7 +87,7 @@ export const SessionService = {
     return tickets.map((ticket) => {
       const classroom = classrooms.find((c) => c.uuid === ticket.programUUID);
       const trainer = trainers.find((c) => c.uuid === ticket.trainerUUID);
-      const customer = customers.find((c) => c.uuid === ticket.customerUUID);
+      const customer = customers.find((c) => c.uuid === ticket.customerUUID.toString());
       return {
         ...ticket,
         classroom: classroom || null,
@@ -102,7 +102,9 @@ export const SessionService = {
   async getTicketsByTrainerUUID(trainerUUID: string) {
     const tickets = await SessionModel.find({
       trainerUUID: trainerUUID,
-    }).exec();
+    })
+      .populate('customerUUID')
+      .exec();
     return tickets;
   },
 

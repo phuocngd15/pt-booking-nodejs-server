@@ -101,6 +101,10 @@ const trainerRoute = [
     id: 'TrainerCalendar',
   },
   {
+    path: '/myCustomer',
+    id: 'MyCustomer',
+  },
+  {
     path: '/profile',
     id: 'Profile',
   },

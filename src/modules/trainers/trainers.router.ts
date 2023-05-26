@@ -14,10 +14,12 @@ import {
   getTrainersByGroupController,
   updateTrainerController,
   getTrainers,
+  getTrainerById,
 } from './trainers.controller';
 const router = Router();
 
 router.get('/', getTrainers);
+router.get('/:trainerId', getTrainerById);
 router.post('/groups', getTrainersByGroupController);
 router.post('/serviceId', getTrainersByGroupController);
 router.put('/profile/:id', updateTrainerController);
