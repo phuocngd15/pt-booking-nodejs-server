@@ -1,21 +1,18 @@
-import { findProgramByUUID, getAllPrograms } from './servicePrograms.service';
+import ProgramsService from './servicePrograms.service';
+import { IUser } from '../dbModels/interface';
 
-import UsersService from '../users/users.service';
-import { findTrainerByUUID } from '../trainers/trainers.service';
-
-// const usersService = new UsersService()
-
+const service = new ProgramsService();
 const getProgramDetailController = async (req, res): Promise<void> => {
   try {
-    const { uuid } = req.body;
-    console.log('uuid ', req.body);
-    const program = await findProgramByUUID(uuid);
-    console.log('program.responsibleEmployees', program.responsibleEmployees);
-    const trainers = await findTrainerByUUID(program.responsibleEmployees);
-    console.log('trainers', trainers);
+    const serviceID = req.params.serviceID;
+    console.log('uuid ', serviceID);
+    const program = await service.findProgramByUUID(serviceID);
+    //console.log('program.responsibleEmployees', program.responsibleEmployees);
+    // const trainers = await findTrainerByAccountID(program.responsibleEmployees);
+    console.log('program', program);
 
     const result = {
-      data: trainers,
+      data: program,
       code: 1,
       message: 'ok',
     };
@@ -26,7 +23,7 @@ const getProgramDetailController = async (req, res): Promise<void> => {
 };
 const getAllProgramsController = async (req, res): Promise<void> => {
   try {
-    const data = await getAllPrograms();
+    const data = await service.getAllPrograms();
     const result = {
       data: data,
       code: 1,
@@ -37,4 +34,16 @@ const getAllProgramsController = async (req, res): Promise<void> => {
     console.error(err);
   }
 };
-export { getProgramDetailController, getAllProgramsController };
+
+const updateProgram = async (req, res): Promise<void> => {
+  try {
+    const id = req.params.id;
+    const user: IUser = req.body;
+    console.log('updateUserController', user);
+    const updatedUser = await service.updateProgram(id, user);
+    res.json(updatedUser);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+export { getProgramDetailController, getAllProgramsController, updateProgram };

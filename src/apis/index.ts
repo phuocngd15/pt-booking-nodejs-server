@@ -35,7 +35,7 @@ const defaultRoutes = [
     route: trainersRouter,
   },
   {
-    path: '/services',
+    path: '/programs',
     route: serviceProgramsRouter,
   },
   {

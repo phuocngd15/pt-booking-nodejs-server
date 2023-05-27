@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema<ITrainer>(
       default: Date.now,
     },
     //account: { type: Schema.Types.ObjectId, ref: 'Account', required: true },
-    account: { type: Schema.Types.ObjectId, ref: 'Account' },
+    //  account: { type: Schema.Types.ObjectId, ref: 'Account' },
     uuid: String,
     role: String,
 

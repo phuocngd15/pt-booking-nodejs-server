@@ -7,6 +7,11 @@ export const getAll = async (req: Request, res: Response) => {
   res.json(accounts);
 };
 
+export const getAllV2 = async (req: Request, res: Response) => {
+  const accounts = await accountService.getAllV2();
+  res.json(accounts);
+};
+
 export const getOne = async (req: Request, res: Response) => {
   const id = req.params.id;
   const account = await accountService.getById(id);

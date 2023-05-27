@@ -70,7 +70,7 @@ export const login = async (req, res) => {
         title: 'user.title',
         token,
         power: acc.power,
-        profile: user,
+        profile: acc.profile,
       });
     });
   } catch (err) {}

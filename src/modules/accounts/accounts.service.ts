@@ -2,6 +2,7 @@ import {
   create,
   findById,
   findAll,
+  findAll2,
   update,
   deleteAccount,
   findByUsername,
@@ -26,6 +27,11 @@ class AccountsService {
 
   public async getAll(): Promise<IAccount[]> {
     const result = await findAll();
+    return result;
+  }
+
+  public async getAllV2(): Promise<IAccount[]> {
+    const result = await findAll2();
     return result;
   }
 

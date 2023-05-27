@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema<IUser>(
       default: Date.now,
     },
     //account: { type: Schema.Types.ObjectId, ref: 'Account', required: true },
-    account: { type: Schema.Types.ObjectId, ref: 'account' },
+    // account: { type: Schema.Types.ObjectId, ref: 'account' },
     tickets: [{ type: Schema.Types.ObjectId, ref: 'sessions' }],
     uuid: String,
     type: {

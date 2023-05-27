@@ -10,6 +10,9 @@ const accountSchema = new Schema<IAccount>({
     default: Date.now,
   },
   status: { type: String, required: true, default: 'active' },
+
+  profile: { type: Schema.Types.ObjectId, refPath: 'profileModel' },
+  profileModel: { type: String, enum: ['users', 'trainers'] },
 });
-export const collectionAccount = 'account';
+export const collectionAccount = 'accounts';
 export default mongoose.model<IAccount>(collectionAccount, accountSchema, collectionAccount);

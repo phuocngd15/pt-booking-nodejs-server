@@ -4,7 +4,7 @@ import UserDoc from '../dbModels/users.model';
 import mongoose from 'mongoose';
 import { update } from '../users/users.repository';
 
-const findTrainerByUUID = async (uuids: string[]): Promise<ITrainer[] | null> => {
+const findTrainerByUUID = async (uuids: []): Promise<ITrainer[] | null> => {
   try {
     const uuidsArray = Array.isArray(uuids) ? uuids : [uuids];
     const trainers = await TrainerDoc.find({ uuid: { $in: uuidsArray } });
@@ -71,9 +71,12 @@ const updateTrainer = async (
   // return await update(id, updates);
   return TrainerDoc.findByIdAndUpdate(id, updateTrainer, { new: true }).exec();
 };
-
+const findByIds = async (ids: string[]): Promise<IUser[] | null> => {
+  return UserDoc.find({ _id: { $in: ids } }).exec();
+};
 export {
   findTrainerByUUID,
+  findByIds,
   findTrainerBySkills,
   getAllTrainers,
   getTrainerByUUID,

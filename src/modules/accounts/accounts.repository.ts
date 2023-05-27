@@ -20,13 +20,17 @@ const findByUsername = async (username: string): Promise<IAccount | null> => {
   if (!username) {
     return null;
   }
-  const account = await AccountModel.findOne({ username: username }).exec();
+  const account = await AccountModel.findOne({ username: username }).populate('profile').exec();
   return account ? account.toObject() : null;
 };
 
 const findAll = async (): Promise<IAccount[]> => {
   const accounts = await AccountModel.find().exec();
   return accounts.map((account) => account.toObject());
+};
+
+const findAll2 = async (): Promise<IAccount[]> => {
+  return AccountModel.find().populate('profile').exec();
 };
 
 const update = async (
@@ -49,4 +53,4 @@ const deleteAccount = async (accountId: string): Promise<IAccount | null> => {
   return Account.findByIdAndDelete(accountId).exec();
 };
 
-export { create, findById, findAll, update, deleteAccount, findByUsername };
+export { create, findById, findAll, update, deleteAccount, findByUsername, findAll2 };

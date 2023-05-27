@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 
-export interface IAccount {
+export interface IAccount extends Document {
   _id: mongoose.Types.ObjectId;
   username: string;
   password: string;
@@ -8,6 +8,8 @@ export interface IAccount {
   createdAt: Date;
   key: string;
   status: string;
+  profile: mongoose.Types.ObjectId;
+  profileModel: 'users' | 'trainers';
 }
 
 export interface IActivity {
@@ -28,6 +30,7 @@ export interface IActivity {
 }
 
 export interface IProgram {
+  key?: string;
   _id: mongoose.Types.ObjectId;
   serviceName: string;
   avatar?: string;
@@ -41,9 +44,9 @@ export interface IProgram {
   canBookBefore?: number;
   serviceType: string[];
   state?: string;
-  responsibleEmployees?: string[];
-  //responsibleEmployees?: IAccount['_id'][];
-  //responsibleEmployees: [{ type: Schema.Types.ObjectId, ref: 'Employee' }]
+  //responsibleEmployees?: string[];
+  responsibleEmployees?: IAccount['_id'][];
+  // responsibleEmployees: [{ type: Schema.Types.ObjectId, ref: 'accounts' }]
   //responsibleEmployees: IAccount['_id'];
 }
 
@@ -80,10 +83,10 @@ export interface ITrainer extends IUser {
 export interface ISession extends Document {
   startTime: Date;
   endTime: Date;
-  trainerUUID?: string;
-  customerUUID?: IUser['_id'];
+  trainerUUID: ITrainer['_id'];
+  customerUUID: IUser['_id'];
 
-  programUUID: string;
+  programUUID: IProgram['_id'];
 
   status: string;
   uuid: string;

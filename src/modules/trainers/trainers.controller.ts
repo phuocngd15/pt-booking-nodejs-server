@@ -80,4 +80,19 @@ const getTrainerById = async (req: Request, res: Response): Promise<void> => {
     res.status(500).json({ message: err.message });
   }
 };
-export { getTrainersByGroupController, updateTrainerController, getTrainers, getTrainerById };
+const getTrainerByIds = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const trainerId = req.params.trainerId;
+    const trainers = await getTrainerByUUID(trainerId);
+    res.json(trainers);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+export {
+  getTrainersByGroupController,
+  updateTrainerController,
+  getTrainers,
+  getTrainerById,
+  getTrainerByIds,
+};

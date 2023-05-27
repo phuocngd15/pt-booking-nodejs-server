@@ -1,5 +1,5 @@
 import SessionModel from '../dbModels/session.model';
-import { ISession, IUser } from '../dbModels/interface';
+import { IProgram, ISession, ITrainer, IUser } from '../dbModels/interface';
 import dayjs, { Dayjs } from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import ServiceProgramsModel from '../dbModels/servicePrograms.model';
 import usersModel from '../dbModels/users.model';
 import trainersModel from '../dbModels/trainers.model';
+
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -44,8 +45,8 @@ export const SessionService = {
     return availableTimeSlots;
   },
   async createTicket(
-    programUUID: string,
-    trainerUUID: string,
+    programUUID: IProgram['_id'],
+    trainerUUID: ITrainer['_id'],
     cusUUID: IUser['_id'],
     date: Date,
     time: Date,
@@ -65,45 +66,24 @@ export const SessionService = {
     const ticket = new SessionModel(newTicket);
 
     // Save the ticket to the database
-    await ticket.save();
+    await ticket.save().then((e) => e.populate(['customerUUID', 'programUUID', 'trainerUUID']));
 
     // Return the created ticket object
     return ticket;
   },
 
   async getTicketsByCustomerUUID(customerUUID: string) {
-    const tickets = await SessionModel.find({ customerUUID: customerUUID }).lean().exec();
-
-    const classrooms = await ServiceProgramsModel.find()
-      .select('serviceName uuid description')
+    const tickets = await SessionModel.find({ customerUUID: customerUUID })
+      .populate(['trainerUUID', 'programUUID'])
       .lean()
       .exec();
-    const trainers = await trainersModel.find().select('fullName uuid').lean().exec();
-    const customers = await usersModel
-      .find({ uuid: { $in: tickets.map((e) => e.customerUUID) } })
-      .lean()
-      .exec();
-
-    return tickets.map((ticket) => {
-      const classroom = classrooms.find((c) => c.uuid === ticket.programUUID);
-      const trainer = trainers.find((c) => c.uuid === ticket.trainerUUID);
-      const customer = customers.find((c) => c.uuid === ticket.customerUUID.toString());
-      return {
-        ...ticket,
-        classroom: classroom || null,
-        trainer: trainer || null,
-        customer: customer,
-      };
-    });
-
     return tickets;
   },
 
   async getTicketsByTrainerUUID(trainerUUID: string) {
-    const tickets = await SessionModel.find({
-      trainerUUID: trainerUUID,
-    })
-      .populate('customerUUID')
+    const tickets = await SessionModel.find({ trainerUUID: trainerUUID })
+      .populate(['trainerUUID', 'programUUID', 'customerUUID'])
+      .lean()
       .exec();
     return tickets;
   },

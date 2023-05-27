@@ -5,13 +5,13 @@ import { IProgram, ISession, IUser } from '../dbModels/interface';
 import { getTrainerByUUID } from '../trainers/trainers.service';
 import dayjs from 'dayjs';
 import { sendConfirmBooking } from '../mail/mail.service';
-import { findProgramByUUID, getAllPrograms } from '../servicePrograms/servicePrograms.service';
 
 const userService = new UsersService();
 export const SessionController = {
   async getAvailableTimeSlots(req: Request, res: Response) {
     try {
       const { trainerId, date } = req.body;
+      console.log('getAvailableTimeSlots trainerId, date', trainerId, date);
       const availableTimeSlots = await SessionService.getAvailableTimeSlots(
         trainerId,
         new Date(date),
