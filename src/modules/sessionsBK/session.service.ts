@@ -53,7 +53,7 @@ export const SessionService = {
   ): Promise<ISession> {
     // Generate a new UUID for the ticket
     const ticketUUID = uuidv4();
-
+    // status: 1-waiting 2-confirm 3-done, 4-fail
     const newTicket: Partial<ISession> = {
       uuid: ticketUUID,
       programUUID: programUUID,
@@ -61,6 +61,7 @@ export const SessionService = {
       customerUUID: cusUUID,
       startTime: dayjs(time).utc().toDate(),
       endTime: dayjs(time).add(1, 'hour').utc().toDate(),
+      status: 1
     };
     // Create a new Ticket object
     const ticket = new SessionModel(newTicket);
@@ -89,7 +90,7 @@ export const SessionService = {
   },
 
   async getTickets() {
-    const tickets = await SessionModel.find().exec();
+    const tickets = await SessionModel.find().populate(['trainerUUID', 'programUUID', 'customerUUID']).exec();
     return tickets;
   },
   async getTicketByTicketUUID(uuid: string): Promise<ISession[]> {

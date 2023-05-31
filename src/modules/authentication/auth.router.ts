@@ -41,6 +41,11 @@ export const login = async (req, res) => {
     if (!acc) {
       return res.status(401).json({ message: 'Invalid username or password' });
     }
+
+    if(acc.status !=='active'){
+      return res.status(401).json({ message: 'Account has been blocked, please contact admin!' });
+    }
+
     let user: IUser | ITrainer | null;
     if (acc.power === 'trainer') {
       user = await findTrainerByAccountID(acc._id.toString());

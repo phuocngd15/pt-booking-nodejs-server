@@ -25,7 +25,7 @@ const findByUsername = async (username: string): Promise<IAccount | null> => {
 };
 
 const findAll = async (): Promise<IAccount[]> => {
-  const accounts = await AccountModel.find().exec();
+  const accounts = await AccountModel.find().populate('profile').exec();
   return accounts.map((account) => account.toObject());
 };
 

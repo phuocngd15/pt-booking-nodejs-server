@@ -88,7 +88,7 @@ export interface ISession extends Document {
 
   programUUID: IProgram['_id'];
 
-  status: string;
+  status: number;
   uuid: string;
 
   createdAt: Date;
