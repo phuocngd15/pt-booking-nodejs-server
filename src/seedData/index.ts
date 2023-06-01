@@ -40,6 +40,7 @@ export const SeedingData = async () => {
     await removeAllDataFromCollection(collectionSession);
     await removeAllDataFromCollection(collectionUser);
     await removeAllDataFromCollection(collectionActivities);
+    await removeAllDataFromCollection('resettokens');
 
     const users = await UsersModel.insertMany(userSeedingData);
     const trainers = await TrainersModel.insertMany(trainerSeedingData);

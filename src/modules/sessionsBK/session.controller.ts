@@ -185,4 +185,34 @@ export const SessionController = {
       return res.status(500).send({ message: 'Internal server error' });
     }
   },
+
+  async confirmTicket(req: Request, res: Response) {
+    try {
+      const uuid = req.params.ticketCode;
+
+      if (uuid) {
+        await SessionService.updateStatusTicket(uuid,2);
+      }
+
+      return res.sendStatus(200); // Send a success response
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send({ message: 'Internal server error' });
+    }
+  },
+
+  async cancelTicket(req: Request, res: Response) {
+    try {
+      const uuid = req.params.ticketCode;
+
+      if (uuid) {
+        await SessionService.updateStatusTicket(uuid,4);
+      }
+
+      return res.sendStatus(200); // Send a success response
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send({ message: 'Internal server error' });
+    }
+  }
 };

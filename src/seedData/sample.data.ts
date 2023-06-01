@@ -16,7 +16,7 @@ import mongoose from 'mongoose';
 //pwd:admin123 , admin@gmail.com
 export const accountSeedingData: Partial<IAccount>[] = [
   {
-    username: 'admin@gmail.com',
+    username: 'ptbooking001@gmail.com',
     power: 'admin',
     password: '$2b$10$Y.0du4qroUxZRctUIwNjs.VTBz1BS98NJQ8UItyaxVXoFQEUlzLIm',
   },

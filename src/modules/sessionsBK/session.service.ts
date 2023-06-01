@@ -97,4 +97,23 @@ export const SessionService = {
     const ticket = await SessionModel.find({ uuid: uuid }).exec();
     return ticket;
   },
+    // status: 1-waiting 2-confirm 3-done, 4-fail
+  async  updateStatusTicket(id: string, status: number): Promise<ISession> {
+    try {
+      const ticket = await SessionModel.findById(id);
+
+      if (!ticket) {
+        throw new Error("Ticket not found"); // Handle case when ticket is not found
+      }
+
+      ticket.status = status; // Update the status to "2" (confirmed)
+      await ticket.save(); // Save the changes to the ticket
+
+      return ticket; // Return the updated ticket
+    } catch (error) {
+      throw new Error("Failed to confirm ticket: " + error.message); // Handle any errors that occurred
+    }
+  }
+
+
 };
