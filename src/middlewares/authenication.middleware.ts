@@ -12,7 +12,6 @@ export const requireLogin = (req, res, next) => {
 };
 export const verifyToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
-  console.log('authHeader', authHeader);
   if (!authHeader) {
     return res.status(401).json({ message: 'Missing authorization header' });
   }
@@ -20,7 +19,6 @@ export const verifyToken = (req, res, next) => {
   const token = authHeader.split(' ')[1];
   jwt.verify(token, secretKey, (err, decoded) => {
     if (err) {
-      console.log('err', 'Invalid token');
       return res.status(401).json({ message: 'Invalid token' });
     }
     req.userId = decoded.userId;

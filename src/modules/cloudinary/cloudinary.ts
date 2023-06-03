@@ -11,7 +11,6 @@ const uploadImageAvatars = async (fileStr) => {
   try {
     const options = { folder: 'avatars' }; // Specify the folder where the image will be saved
     const uploadResponse = await cloudinaryV2.uploader.upload(fileStr, options);
-    console.log(uploadResponse);
     // basic use: use secure_url only,
     return uploadResponse.secure_url;
   } catch (error) {

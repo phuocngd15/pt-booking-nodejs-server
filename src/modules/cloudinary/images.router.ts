@@ -24,10 +24,8 @@ router.post('/upload-image', async (req: Request, res: Response) => {
   try {
     const fileStr = req.body.data;
     const secure_url = await uploadImageAvatars(fileStr);
-    console.log(secure_url);
     res.json({ msg: 'File uploaded sucessfully', url: secure_url });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ err: 'Something went wrong' });
   }
 });

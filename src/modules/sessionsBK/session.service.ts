@@ -113,6 +113,50 @@ export const SessionService = {
     } catch (error) {
       throw new Error("Failed to confirm ticket: " + error.message); // Handle any errors that occurred
     }
+  },
+
+  async getTicketStatisticsByDay() {
+    try {
+      const today = dayjs().startOf('day');
+      const sevenDaysAgo = dayjs(today).subtract(6, 'days').startOf('day');
+      console.log("today",today)
+      console.log("sevenDaysAgo",sevenDaysAgo)
+      const statistics = await SessionModel.aggregate([
+        {
+          $match: {
+            createdAt: { $gte: sevenDaysAgo.toDate(), $lte: today.toDate() },
+          },
+        },
+        {
+          $group: {
+            _id: {
+              $dateToString: { format: '%Y-%m-%d', date: '$createdAt' },
+            },
+            status1: {
+              $sum: { $cond: [{ $eq: ['$status', 1] }, 1, 0] },
+            },
+            status2: {
+              $sum: { $cond: [{ $eq: ['$status', 2] }, 1, 0] },
+            },
+            status3: {
+              $sum: { $cond: [{ $eq: ['$status', 3] }, 1, 0] },
+            },
+            status4: {
+              $sum: { $cond: [{ $eq: ['$status', 4] }, 1, 0] },
+            },
+          },
+        },
+        {
+          $sort: { _id: 1 },
+        },
+      ]);
+
+      return statistics;
+    } catch (error) {
+      // Handle the error appropriately
+      console.error('Error retrieving ticket statistics:', error);
+      throw error;
+    }
   }
 
 

@@ -120,7 +120,6 @@ export const register = async (req, res) => {
         };
         res.json(result);
     } catch (err) {
-        console.error(err);
         res.status(500).json({message: 'Internal server error'});
     }
 };
@@ -153,7 +152,6 @@ export const changePass = async (req, res) => {
 
     res.send('Password reset successfully');
   } catch (e) {
-    console.log(e);
     res.status(500).send('Internal server error');
   }
 };
@@ -178,7 +176,6 @@ export const resetpass = async (req, res) => {
     })
         .then(() => res.send('Password reset email sent successfully'))
         .catch((e) => {
-            console.log(e);
             res.send('Password reset failed');
         });
 

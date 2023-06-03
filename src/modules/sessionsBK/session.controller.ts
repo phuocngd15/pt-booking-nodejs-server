@@ -26,7 +26,7 @@ export const SessionController = {
   async bookSession(req: Request, res: Response) {
     try {
       const { programsUUID, trainerUUID, date, time, cusName, cusPhone, cusEmail } = req.body;
-      console.log(' req.body');
+      console.log('req.body',req.body);
 
       // Find user by email
       let user: IUser = await userService.findUserByEmail(cusEmail);
@@ -173,12 +173,6 @@ export const SessionController = {
         return res.status(404).send({ message: 'No tickets found' });
       }
 
-      // programs = await getAllPrograms()
-      // tickets.forEach(e=>{
-      //    if(e.programUUID){
-      //        e["ProgramName"]= programs.filter(p=>p.uuid===e.programUUID)[0].serviceName
-      //    }
-      // })
       return res.send({ tickets: tickets, user: user });
     } catch (error) {
       console.error(error);
@@ -214,5 +208,19 @@ export const SessionController = {
       console.error(error);
       return res.status(500).send({ message: 'Internal server error' });
     }
-  }
+  },
+
+  async getTicketStatisticsByDay(req: Request, res: Response) {
+    try {
+      const tickets = await SessionService.getTicketStatisticsByDay();
+      if (!tickets) {
+        return res.status(404).send({ message: 'No tickets found' });
+      }
+
+      return res.send(tickets);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send({ message: 'Internal server error' });
+    }
+  },
 };
