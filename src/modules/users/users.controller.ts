@@ -85,7 +85,7 @@ export const getMyCustomer = async (req: Request, res: Response): Promise<void> 
     } else {
       const tickets = await SessionService.getTicketsByTrainerUUID(`${trainerId}`);
       const user = await usersService.findUsersByUUID(
-        tickets.map((e) => e.customerUUID.toString()),
+        tickets.map((e) => e.customerUUID?.toString()),
       );
       console.log('tickets', tickets);
 

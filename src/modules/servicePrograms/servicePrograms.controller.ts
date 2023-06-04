@@ -1,5 +1,5 @@
 import ProgramsService from './servicePrograms.service';
-import { IUser } from '../dbModels/interface';
+import { IProgram, IUser } from '../dbModels/interface';
 
 const service = new ProgramsService();
 const getProgramDetailController = async (req, res): Promise<void> => {
@@ -46,4 +46,15 @@ const updateProgram = async (req, res): Promise<void> => {
     res.status(500).json({ message: err.message });
   }
 };
-export { getProgramDetailController, getAllProgramsController, updateProgram };
+const addNewProgram = async (req, res): Promise<void> => {
+  try {
+    const newProgram: IProgram = req.body;
+    console.log('addNewProgram', newProgram);
+    const result = await service.createProgram(newProgram);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+export { getProgramDetailController, getAllProgramsController, updateProgram, addNewProgram };

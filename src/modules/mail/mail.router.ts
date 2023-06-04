@@ -14,7 +14,7 @@ router.get('/auth/google/callback', (req: Request, res: Response) => {
   console.log('req.query', req.query);
   const { code } = req.query;
 
-  if (code) SaveTokenGMail(code,res);
+  if (code) SaveTokenGMail(code, res);
 });
 router.get('/send-mail', async (req: Request, res: Response) => {
   const options = {

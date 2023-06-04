@@ -26,7 +26,7 @@ export const SessionController = {
   async bookSession(req: Request, res: Response) {
     try {
       const { programsUUID, trainerUUID, date, time, cusName, cusPhone, cusEmail } = req.body;
-      console.log('req.body',req.body);
+      console.log('req.body', req.body);
 
       // Find user by email
       let user: IUser = await userService.findUserByEmail(cusEmail);
@@ -185,7 +185,7 @@ export const SessionController = {
       const uuid = req.params.ticketCode;
 
       if (uuid) {
-        await SessionService.updateStatusTicket(uuid,2);
+        await SessionService.updateStatusTicket(uuid, 2);
       }
 
       return res.sendStatus(200); // Send a success response
@@ -200,7 +200,7 @@ export const SessionController = {
       const uuid = req.params.ticketCode;
 
       if (uuid) {
-        await SessionService.updateStatusTicket(uuid,4);
+        await SessionService.updateStatusTicket(uuid, 4);
       }
 
       return res.sendStatus(200); // Send a success response

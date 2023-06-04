@@ -2,7 +2,7 @@
 https://www.labnol.org/google-api-service-account-220405
 https://console.cloud.google.com/apis/dashboard?authuser=1&project=pt-booking-378508
  */
-import {Response} from "express";
+import { Response } from 'express';
 
 const { google } = require('googleapis');
 const path = require('path');
@@ -25,7 +25,7 @@ export const AuthorizeGmail = async () => {
   console.log('Authorize this app by visiting this url:', url);
 };
 
-export const SaveTokenGMail = (ggcode,res: Response) => {
+export const SaveTokenGMail = (ggcode, res: Response) => {
   const { client_secret, client_id, redirect_uris } = credentials.web;
   const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
 
@@ -34,7 +34,7 @@ export const SaveTokenGMail = (ggcode,res: Response) => {
     console.log('tokens', tokens);
     fs.writeFileSync(tokenPath, JSON.stringify(tokens));
     console.log('Access token and refresh token stored to token.json');
-    res.json("Access token and refresh token stored to token.json")
+    res.json('Access token and refresh token stored to token.json');
   });
 };
 // flow gmail sender

@@ -61,7 +61,7 @@ export const SessionService = {
       customerUUID: cusUUID,
       startTime: dayjs(time).utc().toDate(),
       endTime: dayjs(time).add(1, 'hour').utc().toDate(),
-      status: 1
+      status: 1,
     };
     // Create a new Ticket object
     const ticket = new SessionModel(newTicket);
@@ -75,7 +75,7 @@ export const SessionService = {
 
   async getTicketsByCustomerUUID(customerUUID: string) {
     const tickets = await SessionModel.find({ customerUUID: customerUUID })
-      .populate(['trainerUUID', 'programUUID'])
+      .populate(['trainerUUID', 'programUUID', 'customerUUID'])
       .lean()
       .exec();
     return tickets;
@@ -90,20 +90,22 @@ export const SessionService = {
   },
 
   async getTickets() {
-    const tickets = await SessionModel.find().populate(['trainerUUID', 'programUUID', 'customerUUID']).exec();
+    const tickets = await SessionModel.find()
+      .populate(['trainerUUID', 'programUUID', 'customerUUID'])
+      .exec();
     return tickets;
   },
   async getTicketByTicketUUID(uuid: string): Promise<ISession[]> {
     const ticket = await SessionModel.find({ uuid: uuid }).exec();
     return ticket;
   },
-    // status: 1-waiting 2-confirm 3-done, 4-fail
-  async  updateStatusTicket(id: string, status: number): Promise<ISession> {
+  // status: 1-waiting 2-confirm 3-done, 4-fail
+  async updateStatusTicket(id: string, status: number): Promise<ISession> {
     try {
       const ticket = await SessionModel.findById(id);
 
       if (!ticket) {
-        throw new Error("Ticket not found"); // Handle case when ticket is not found
+        throw new Error('Ticket not found'); // Handle case when ticket is not found
       }
 
       ticket.status = status; // Update the status to "2" (confirmed)
@@ -111,7 +113,7 @@ export const SessionService = {
 
       return ticket; // Return the updated ticket
     } catch (error) {
-      throw new Error("Failed to confirm ticket: " + error.message); // Handle any errors that occurred
+      throw new Error('Failed to confirm ticket: ' + error.message); // Handle any errors that occurred
     }
   },
 
@@ -119,8 +121,8 @@ export const SessionService = {
     try {
       const today = dayjs().startOf('day');
       const sevenDaysAgo = dayjs(today).subtract(6, 'days').startOf('day');
-      console.log("today",today)
-      console.log("sevenDaysAgo",sevenDaysAgo)
+      console.log('today', today);
+      console.log('sevenDaysAgo', sevenDaysAgo);
       const statistics = await SessionModel.aggregate([
         {
           $match: {
@@ -157,7 +159,5 @@ export const SessionService = {
       console.error('Error retrieving ticket statistics:', error);
       throw error;
     }
-  }
-
-
+  },
 };

@@ -8,9 +8,8 @@ const ProgramSchema = new mongoose.Schema<IProgram>(
     avatar: String,
     duration: String,
     description: String,
+    programLevel: String,
     price: String,
-    uuid: String,
-
     canBookBefore: {
       type: Number,
       integer: true,
@@ -22,25 +21,19 @@ const ProgramSchema = new mongoose.Schema<IProgram>(
       type: Date,
       default: Date.now,
     },
-    serviceType: { type: [String] }, // mot class co nhieu tags, tags de danh dau loai lop hoc
-    //responsibleEmployees: { type: [String] },
+    category: { type: [String] },
+      teachingStyle: { type: [String] },
     responsibleEmployees: [{ type: Schema.Types.ObjectId, ref: 'accounts' }],
 
-    state: {
+    status: {
       type: String,
-      default: 'planing',
+      default: 'Private',
     },
-    //  staffs: {type: Schema.Types.ObjectId, ref: 'Account'},
-    //  responsibleEmployees: [{ type: Schema.Types.ObjectId, ref: 'Employee' }]
   },
   {
     minimize: false,
   },
 );
-/*
-export const collectionName = 'ProgramDoc'
-export default mongoose.model<IProgram>('ProgramDoc', ProgramSchema);
-*/
 
 export const collectionProgram = 'programs';
 export default mongoose.model<IProgram>(collectionProgram, ProgramSchema, collectionProgram);

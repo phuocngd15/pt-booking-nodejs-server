@@ -30,24 +30,19 @@ export interface IActivity {
 }
 
 export interface IProgram {
-  key?: string;
   _id: mongoose.Types.ObjectId;
   serviceName: string;
   avatar?: string;
-  duration?: string;
-  description: string;
+  duration?: number;
+  description?: string;
+  programLevel: string;
   price: string;
-
-  uuid: string;
-
   createdAt: Date;
   canBookBefore?: number;
-  serviceType: string[];
-  state?: string;
-  //responsibleEmployees?: string[];
+  category: string[];
+  teachingStyle: string[];
+  status?: string;
   responsibleEmployees?: IAccount['_id'][];
-  // responsibleEmployees: [{ type: Schema.Types.ObjectId, ref: 'accounts' }]
-  //responsibleEmployees: IAccount['_id'];
 }
 
 export interface IUser {
