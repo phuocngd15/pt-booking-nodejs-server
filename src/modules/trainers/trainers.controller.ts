@@ -1,4 +1,5 @@
 import {
+  createTrainer,
   findTrainerBySkills,
   getAllTrainers,
   getTrainerByUUID,
@@ -6,7 +7,12 @@ import {
 } from './trainers.service';
 import { Request, Response } from 'express';
 import { ITrainer, IUser } from '../dbModels/interface';
+import AccountsService from "../accounts/accounts.service";
+import jwt from 'jsonwebtoken';
+import crypto from 'crypto';
+import bcrypt from 'bcrypt';
 
+const accountService = new AccountsService();
 const getTrainersByGroupController = async (req, res) => {
   try {
     const { groupName } = req.body;
@@ -80,19 +86,61 @@ const getTrainerById = async (req: Request, res: Response): Promise<void> => {
     res.status(500).json({ message: err.message });
   }
 };
-const getTrainerByIds = async (req: Request, res: Response): Promise<void> => {
+const addNewTrainer= async (req: Request, res: Response): Promise<void> => {
   try {
-    const trainerId = req.params.trainerId;
-    const trainers = await getTrainerByUUID(trainerId);
-    res.json(trainers);
+    const dataForm: AddNewTrainerDataForm = req.body;
+    console.log("dataForm",dataForm)
+    const existingAccount = await accountService.getByUserName(dataForm.username);
+    if (existingAccount) {
+       res.status(404).send( 'Email is invalid or already taken' );
+       return;
+    }
+
+    // Hash the password before saving to the database
+    const hashedPassword = await bcrypt.hash(dataForm.password, 10);
+
+    // Create a new account using the accountSchema model
+    const newAccount = await accountService.create({
+      username: dataForm.username,
+      password: hashedPassword,
+      profileModel:"trainers"
+    });
+
+    const newTrainerInfo = await createTrainer({
+      fullName: dataForm?.fullName,
+      email: dataForm?.email,
+      gender: dataForm?.gender,
+      phone: dataForm?.phone,
+      account: newAccount._id,
+      avatar: dataForm?.avatarURl,
+      skills: dataForm?.skills
+
+    });
+    const result = {
+      data: { acc: newAccount, profile: newTrainerInfo },
+      code: 1,
+      message: 'Trainer created successfully',
+    };
+    res.json(result);
   } catch (err) {
+    console.log(err)
     res.status(500).json({ message: err.message });
   }
 };
+interface AddNewTrainerDataForm{
+  fullName: string,
+  gender: string,
+  email: string,
+  skills: string[],
+  username: string,
+  password: string,
+  phone: string,
+  avatarURl:string
+}
 export {
   getTrainersByGroupController,
   updateTrainerController,
   getTrainers,
   getTrainerById,
-  getTrainerByIds,
+  addNewTrainer,
 };

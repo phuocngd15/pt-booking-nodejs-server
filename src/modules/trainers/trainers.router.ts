@@ -15,11 +15,13 @@ import {
   updateTrainerController,
   getTrainers,
   getTrainerById,
+    addNewTrainer
 } from './trainers.controller';
 const router = Router();
 
 router.get('/', getTrainers);
 router.get('/:trainerId', getTrainerById);
+router.post('/new', addNewTrainer);
 router.post('/ids', getTrainerById);
 router.post('/groups', getTrainersByGroupController);
 router.post('/serviceId', getTrainersByGroupController);

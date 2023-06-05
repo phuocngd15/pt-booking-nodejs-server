@@ -37,7 +37,7 @@ export const accountSeedingData: Partial<IAccount>[] = [
 export const trainerSeedingData: Partial<ITrainer>[] = [
   {
     fullName: 'Jack',
-    gender: 'male',
+    gender: 'Male',
     phone: '937536543',
     email: 'secoder79@example.com',
     birthday: new Date('1992-01-11'),
@@ -57,7 +57,7 @@ export const trainerSeedingData: Partial<ITrainer>[] = [
   },
   {
     fullName: 'Jacob',
-    gender: 'male',
+    gender: 'Male',
     phone: '0937537548',
     email: 'secoder39@gmail.com',
     birthday: new Date('1990-01-01'),
@@ -72,8 +72,8 @@ export const trainerSeedingData: Partial<ITrainer>[] = [
     skills: ['Strength', 'Nutrutiology', 'Weight loss'],
   },
   {
-    fullName: 'RITa',
-    gender: 'female',
+    fullName: 'Rita',
+    gender: 'Female',
     phone: '0937537542',
     email: 'secoder79@gmail.com',
     birthday: new Date('1992-01-01'),
@@ -91,8 +91,8 @@ export const trainerSeedingData: Partial<ITrainer>[] = [
 
 export const userSeedingData: Partial<IUser>[] = [
   {
-    fullName: 'Khach Hang A',
-    gender: 'male',
+    fullName: 'Jack nguyen duy',
+    gender: 'Male',
     phone: '0937536545',
     email: 'secoder7979@gmail.com',
     address: '',

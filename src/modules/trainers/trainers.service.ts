@@ -71,12 +71,14 @@ const updateTrainer = async (
   // return await update(id, updates);
   return TrainerDoc.findByIdAndUpdate(id, updateTrainer, { new: true }).exec();
 };
-const findByIds = async (ids: string[]): Promise<IUser[] | null> => {
-  return UserDoc.find({ _id: { $in: ids } }).exec();
+
+const createTrainer = async (trainer: Partial<ITrainer>): Promise<ITrainer> => {
+  const createdUser = new TrainerDoc(trainer);
+  return createdUser.save();
 };
 export {
   findTrainerByUUID,
-  findByIds,
+  createTrainer,
   findTrainerBySkills,
   getAllTrainers,
   getTrainerByUUID,
