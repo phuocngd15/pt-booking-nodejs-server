@@ -98,17 +98,17 @@ export interface IResetToken {
 }
 
 export interface IGymCenter extends Document {
-  centerName: string;
-  centerDes: string;
-  centerAddressStr: string;
-  centerImageMain: string;
-  centerGGLocation: {
+  centerName?: string;
+  centerDes?: string;
+  centerAddressStr?: string;
+  centerImageMain?: string;
+  centerGGLocation?: {
     lat: number;
     lng: number;
   };
-  centerGGContent: string;
-  centerGGLabelMaker: string;
-  centerOperatingDes: string;
-  centerImages: string[];
-  centerAddressProvince: string;
+  centerGGContent?: string;
+  centerGGLabelMaker?: string;
+  centerOperatingDes?: string;
+  centerImages?: string[];
+  centerAddressProvince?: string;
 }

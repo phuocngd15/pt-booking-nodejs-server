@@ -25,7 +25,8 @@ export const SessionController = {
   },
   async bookSession(req: Request, res: Response) {
     try {
-      const { programsUUID, trainerUUID, date, time, cusName, cusPhone, cusEmail } = req.body;
+      const { programsUUID, trainerUUID, date, time, cusName, cusPhone, cusEmail, gymCenterUUID } =
+        req.body;
       console.log('req.body', req.body);
 
       // Find user by email
@@ -78,6 +79,7 @@ export const SessionController = {
         user._id,
         date,
         time,
+        gymCenterUUID,
       );
       console.log('starttime', ticket);
       console.log('starttime', dayjs(ticket.startTime).tz('Asia/Ho_Chi_Minh').toJSON());
@@ -103,7 +105,6 @@ export const SessionController = {
   async getTicketsByCustomerUUID(req: Request, res: Response) {
     try {
       const customerUUID = req.params.customerUUID;
-      console.log(' customerUUID', customerUUID);
       const tickets = await SessionService.getTicketsByCustomerUUID(customerUUID);
 
       if (!tickets) {
@@ -164,7 +165,7 @@ export const SessionController = {
 
       if (uuid.includes('@gmail')) {
         user = await userService.findUserByEmail(uuid);
-        if (user) tickets = await SessionService.getTicketsByCustomerUUID(`${user._id}`);
+        if (user) tickets = await SessionService.getConfirmedTicketsByCustomerUUID(`${user._id}`);
       } else if (uuid) {
         tickets = await SessionService.getTicketByTicketUUID(uuid);
       }

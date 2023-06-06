@@ -1,5 +1,5 @@
 import SessionModel from '../dbModels/session.model';
-import { IProgram, ISession, ITrainer, IUser } from '../dbModels/interface';
+import { IGymCenter, IProgram, ISession, ITrainer, IUser } from '../dbModels/interface';
 import dayjs, { Dayjs } from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
@@ -50,6 +50,7 @@ export const SessionService = {
     cusUUID: IUser['_id'],
     date: Date,
     time: Date,
+    gymCenterUUID?: IGymCenter['_id'],
   ): Promise<ISession> {
     // Generate a new UUID for the ticket
     const ticketUUID = uuidv4();
@@ -62,12 +63,13 @@ export const SessionService = {
       startTime: dayjs(time).utc().toDate(),
       endTime: dayjs(time).add(1, 'hour').utc().toDate(),
       status: 1,
+      gymCenterUUID: gymCenterUUID,
     };
     // Create a new Ticket object
     const ticket = new SessionModel(newTicket);
 
     // Save the ticket to the database
-    await ticket.save().then((e) => e.populate(['customerUUID', 'programUUID', 'trainerUUID']));
+    await ticket.save().then((e) => e.populate(['customerUUID', 'programUUID', 'trainerUUID','gymCenterUUID']));
 
     // Return the created ticket object
     return ticket;
@@ -75,15 +77,23 @@ export const SessionService = {
 
   async getTicketsByCustomerUUID(customerUUID: string) {
     const tickets = await SessionModel.find({ customerUUID: customerUUID })
-      .populate(['trainerUUID', 'programUUID', 'customerUUID'])
+      .populate(['trainerUUID', 'programUUID', 'customerUUID','gymCenterUUID'])
       .lean()
       .exec();
     return tickets;
   },
 
+  async getConfirmedTicketsByCustomerUUID(customerUUID: string) {
+    const tickets = await SessionModel.find({ customerUUID: customerUUID, status:2 })
+        .populate(['trainerUUID', 'programUUID', 'customerUUID','gymCenterUUID'])
+        .lean()
+        .exec();
+    return tickets;
+  },
+
   async getTicketsByTrainerUUID(trainerUUID: string) {
     const tickets = await SessionModel.find({ trainerUUID: trainerUUID })
-      .populate(['trainerUUID', 'programUUID', 'customerUUID'])
+      .populate(['trainerUUID', 'programUUID', 'customerUUID','gymCenterUUID'])
       .lean()
       .exec();
     return tickets;
@@ -91,7 +101,7 @@ export const SessionService = {
 
   async getTickets() {
     const tickets = await SessionModel.find()
-      .populate(['trainerUUID', 'programUUID', 'customerUUID'])
+      .populate(['trainerUUID', 'programUUID', 'customerUUID','gymCenterUUID'])
       .exec();
     return tickets;
   },

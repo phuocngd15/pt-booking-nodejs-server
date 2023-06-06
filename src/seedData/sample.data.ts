@@ -275,6 +275,13 @@ export const GymCentersSeedingData: Partial<IGymCenter>[] = [
     centerGGLabelMaker: 'Cali SG',
     centerAddressProvince: 'HCM',
   },
+  {
+    centerName: 'Online',
+    centerAddressStr:
+      "Freedom! You can use this service at home, outdoors, or while you're on the move.",
+    centerImageMain:
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgkwla8vAoLrIoYgaLBEF5sVPB6o--6oz4Cg&usqp=CAU',
+  },
 ];
 
 const genTrainerID = (length: number) => {
