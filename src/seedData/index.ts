@@ -14,6 +14,7 @@ import {
   serviceProgramsSeedingData,
   userSeedingData,
   activitiesSeedingData,
+  GymCentersSeedingData,
 } from './sample.data';
 import SessionModel, {
   collectionName as collectionSession,
@@ -22,6 +23,9 @@ import UsersModel, { collectionName as collectionUser } from '../modules/dbModel
 import ActivitiesTaskModel, {
   collectionName as collectionActivities,
 } from '../modules/dbModels/activitiesTask.model';
+import GymCentersModel, {
+  collectionName as collectionGymCenter,
+} from '../modules/dbModels/gymCenters.model';
 
 async function removeAllDataFromCollection(collectionName: string): Promise<void> {
   try {
@@ -41,6 +45,7 @@ export const SeedingData = async () => {
     await removeAllDataFromCollection(collectionUser);
     await removeAllDataFromCollection(collectionActivities);
     await removeAllDataFromCollection('resettokens');
+    await removeAllDataFromCollection(collectionGymCenter);
 
     const users = await UsersModel.insertMany(userSeedingData);
     const trainers = await TrainersModel.insertMany(trainerSeedingData);
@@ -74,6 +79,8 @@ export const SeedingData = async () => {
     activitiesSeedingData[1].createByTrainer = dataTrainer1.id;
 
     await ActivitiesTaskModel.insertMany(activitiesSeedingData);
+
+    await GymCentersModel.insertMany(GymCentersSeedingData);
 
     logger.info('Data seeded successfully');
   } catch (e) {

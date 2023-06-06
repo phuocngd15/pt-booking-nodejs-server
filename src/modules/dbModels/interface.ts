@@ -82,6 +82,7 @@ export interface ISession extends Document {
   customerUUID: IUser['_id'];
 
   programUUID: IProgram['_id'];
+  gymCenterUUID: IGymCenter['_id'];
 
   status: number;
   uuid: string;
@@ -94,4 +95,20 @@ export interface IResetToken {
   token: string;
   createdAt: Date;
   expired: boolean;
+}
+
+export interface IGymCenter extends Document {
+  centerName: string;
+  centerDes: string;
+  centerAddressStr: string;
+  centerImageMain: string;
+  centerGGLocation: {
+    lat: number;
+    lng: number;
+  };
+  centerGGContent: string;
+  centerGGLabelMaker: string;
+  centerOperatingDes: string;
+  centerImages: string[];
+  centerAddressProvince: string;
 }

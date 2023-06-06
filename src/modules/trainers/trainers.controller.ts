@@ -7,7 +7,7 @@ import {
 } from './trainers.service';
 import { Request, Response } from 'express';
 import { ITrainer, IUser } from '../dbModels/interface';
-import AccountsService from "../accounts/accounts.service";
+import AccountsService from '../accounts/accounts.service';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import bcrypt from 'bcrypt';
@@ -86,14 +86,14 @@ const getTrainerById = async (req: Request, res: Response): Promise<void> => {
     res.status(500).json({ message: err.message });
   }
 };
-const addNewTrainer= async (req: Request, res: Response): Promise<void> => {
+const addNewTrainer = async (req: Request, res: Response): Promise<void> => {
   try {
     const dataForm: AddNewTrainerDataForm = req.body;
-    console.log("dataForm",dataForm)
+    console.log('dataForm', dataForm);
     const existingAccount = await accountService.getByUserName(dataForm.username);
     if (existingAccount) {
-       res.status(404).send( 'Email is invalid or already taken' );
-       return;
+      res.status(404).send('Email is invalid or already taken');
+      return;
     }
 
     // Hash the password before saving to the database
@@ -103,7 +103,7 @@ const addNewTrainer= async (req: Request, res: Response): Promise<void> => {
     const newAccount = await accountService.create({
       username: dataForm.username,
       password: hashedPassword,
-      profileModel:"trainers"
+      profileModel: 'trainers',
     });
 
     const newTrainerInfo = await createTrainer({
@@ -113,8 +113,7 @@ const addNewTrainer= async (req: Request, res: Response): Promise<void> => {
       phone: dataForm?.phone,
       account: newAccount._id,
       avatar: dataForm?.avatarURl,
-      skills: dataForm?.skills
-
+      skills: dataForm?.skills,
     });
     const result = {
       data: { acc: newAccount, profile: newTrainerInfo },
@@ -123,19 +122,19 @@ const addNewTrainer= async (req: Request, res: Response): Promise<void> => {
     };
     res.json(result);
   } catch (err) {
-    console.log(err)
+    console.log(err);
     res.status(500).json({ message: err.message });
   }
 };
-interface AddNewTrainerDataForm{
-  fullName: string,
-  gender: string,
-  email: string,
-  skills: string[],
-  username: string,
-  password: string,
-  phone: string,
-  avatarURl:string
+interface AddNewTrainerDataForm {
+  fullName: string;
+  gender: string;
+  email: string;
+  skills: string[];
+  username: string;
+  password: string;
+  phone: string;
+  avatarURl: string;
 }
 export {
   getTrainersByGroupController,

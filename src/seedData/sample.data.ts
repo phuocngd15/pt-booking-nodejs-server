@@ -7,6 +7,7 @@
 import {
   IAccount,
   IActivity,
+  IGymCenter,
   IProgram,
   ISession,
   ITrainer,
@@ -14,6 +15,16 @@ import {
 } from '../modules/dbModels/interface';
 import mongoose from 'mongoose';
 //pwd:admin123 , admin@gmail.com
+const programLevelConst = {
+  basic: 'Basic',
+  intermediate: 'Intermediate',
+  advanced: 'Advanced',
+};
+const programTeachingStyleConst = {
+  online11: 'Online-1-1',
+  offLine11: 'Offline-1-1',
+};
+
 export const accountSeedingData: Partial<IAccount>[] = [
   {
     username: 'ptbooking001@gmail.com',
@@ -102,17 +113,6 @@ export const userSeedingData: Partial<IUser>[] = [
     introduction: 'hi i am a good man',
   },
 ];
-const programLevelConst = {
-  basic: 'Basic',
-  intermediate: 'Intermediate',
-  advanced: 'Advanced'
-};
-const programTeachingStyleConst = {
-  online11: 'Online-1-1',
-  online1N: 'Online-1-N',
-  offLine11: 'Offline-1-1',
-  offLine1N: 'Offline-1-N'
-};
 
 export const serviceProgramsSeedingData: Partial<IProgram>[] = [
   {
@@ -120,7 +120,7 @@ export const serviceProgramsSeedingData: Partial<IProgram>[] = [
     category: ['Yoga'],
     programLevel: programLevelConst.basic,
     description: 'level beginner',
-    teachingStyle:[programTeachingStyleConst.offLine1N],
+    teachingStyle: [programTeachingStyleConst.offLine11],
     avatar:
       'https://www.shutterstock.com/image-photo/horizontal-image-seven-multiethnic-people-260nw-1660412536.jpg',
     responsibleEmployees: [],
@@ -133,7 +133,7 @@ export const serviceProgramsSeedingData: Partial<IProgram>[] = [
     responsibleEmployees: [],
     programLevel: programLevelConst.intermediate,
     description: 'level intermediate',
-    teachingStyle:[programTeachingStyleConst.offLine1N],
+    teachingStyle: [programTeachingStyleConst.online11, programTeachingStyleConst.offLine11],
   },
   {
     serviceName: 'Yoga 003',
@@ -143,7 +143,7 @@ export const serviceProgramsSeedingData: Partial<IProgram>[] = [
     responsibleEmployees: [],
     programLevel: programLevelConst.intermediate,
     description: 'level intermediate',
-    teachingStyle:[programTeachingStyleConst.offLine1N],
+    teachingStyle: [programTeachingStyleConst.offLine11],
   },
   {
     serviceName: 'Yoga 004',
@@ -153,7 +153,7 @@ export const serviceProgramsSeedingData: Partial<IProgram>[] = [
     responsibleEmployees: [],
     programLevel: programLevelConst.intermediate,
     description: 'level intermediate',
-    teachingStyle:[programTeachingStyleConst.offLine1N],
+    teachingStyle: [programTeachingStyleConst.offLine11],
   },
   {
     serviceName: 'Yoga 005',
@@ -162,7 +162,7 @@ export const serviceProgramsSeedingData: Partial<IProgram>[] = [
     responsibleEmployees: [],
     programLevel: programLevelConst.intermediate,
     description: 'level intermediate',
-    teachingStyle:[programTeachingStyleConst.offLine1N],
+    teachingStyle: [programTeachingStyleConst.offLine11],
   },
   {
     serviceName: 'Cycling 006',
@@ -171,7 +171,7 @@ export const serviceProgramsSeedingData: Partial<IProgram>[] = [
     responsibleEmployees: [],
     programLevel: programLevelConst.intermediate,
     description: 'level intermediate',
-    teachingStyle:[programTeachingStyleConst.offLine1N],
+    teachingStyle: [programTeachingStyleConst.online11],
   },
   {
     serviceName: 'Boxing 007',
@@ -181,7 +181,7 @@ export const serviceProgramsSeedingData: Partial<IProgram>[] = [
     responsibleEmployees: [],
     programLevel: programLevelConst.intermediate,
     description: 'level intermediate',
-    teachingStyle:[programTeachingStyleConst.offLine1N],
+    teachingStyle: [programTeachingStyleConst.online11],
   },
 ];
 
@@ -237,18 +237,46 @@ export const SessionsAbleMockData: Partial<ISession>[] = [
   },
 ];
 
-// interface DataType {
-//     key: string;
-//     personId: string;
-//     fullName: string;
-//     phone: string;
-//     birthDay: number;
-//     address: string;
-//     email: string;
-//     rate: number;
-//     certificate?: string[];
-//     skills?: string[];
-// }
+export const GymCentersSeedingData: Partial<IGymCenter>[] = [
+  {
+    centerAddressStr:
+      'Binh Duong Square, 3rd Floor, 1 Phu Loi Street, Phu Loi Ward, Thu Dau Mot City, Binh Duong Province.',
+    centerDes:
+      ' Located in Binh Duong Square, a commercial center, California Fitness & Yoga Center\n' +
+      '              Binh Duong is the only internationally prestigious fitness facility in Binh Duong.\n' +
+      '              With a total area of up to 16,000m2, it satisfies the workout needs of gym enthusiasts\n' +
+      '              in Thu Dau Mot City and the surrounding area.',
+    centerImageMain: 'https://cali.vn/storage/app/media/2021/Club/Binh%20Duong/California-4365.jpg',
+    centerImages: ['https://cali.vn/storage/app/media/2021/Club/Binh%20Duong/California-4207.jpg'],
+    centerName: 'CALI BING DUONG SQUARE',
+    centerOperatingDes: 'Monday - Sunday: 5:00 AM - 10:00 PM',
+    centerGGLocation: { lat: 10.984571001127811, lng: 106.66716863206851 },
+    centerGGContent: 'BING DUONG SQUARE CALI',
+    centerGGLabelMaker: 'Cali',
+    centerAddressProvince: 'BD',
+  },
+  {
+    centerName: 'CALI SAIGON CENTER',
+    centerDes:
+      'There is a prime location on the 6th, 7th, and 8th floors of Saigon Center with a luxurious design, \n' +
+      'combining California Centuryon Saigon Center gym with Hypoxi center and Eri Beauty Clinic within a 1km radius, \n' +
+      'creating a high-end ecosystem to help members quickly achieve their perfect physique.',
+    centerAddressStr:
+      '6th Floor - Saigon Center, 65 Le Loi Street, Ben Nghe Ward, District 1, Ho Chi Minh City.',
+    centerImageMain:
+      'https://cali.vn/storage/app/media/2021/Club/HO%20CHI%20MINH/SCC/HCM_900x600.jpg',
+    centerImages: [
+      'https://cali.vn/storage/app/media/2021/Club/HO%20CHI%20MINH/SCC/Facility%20Slider/SCC_Slider_1900x800px_03.jpg',
+      'https://cali.vn/storage/app/media/2021/Club/HO%20CHI%20MINH/SCC/Facility%20Slider/SCC_Slider_1900x800px_10.jpg',
+    ],
+    centerOperatingDes: 'Monday - Sunday: 5:00 AM - 10:00 PM',
+    centerGGLocation: { lat: 10.774147099235272, lng: 106.70113266188328 },
+    centerGGContent: 'CALI SAIGON CENTER',
+    centerGGLabelMaker: 'Cali SG',
+    centerAddressProvince: 'HCM',
+  },
+];
+
 const genTrainerID = (length: number) => {
   return Number(Math.random().toString().substr(3, length) + Date.now()).toString(36);
 };

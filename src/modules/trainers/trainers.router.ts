@@ -15,7 +15,7 @@ import {
   updateTrainerController,
   getTrainers,
   getTrainerById,
-    addNewTrainer
+  addNewTrainer,
 } from './trainers.controller';
 const router = Router();
 

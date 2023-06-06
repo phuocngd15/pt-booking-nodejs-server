@@ -10,6 +10,7 @@ import mailRouter from '../modules/mail/mail.router';
 import authRouters from '../modules/authentication/auth.router';
 import imagesRouter from '../modules/cloudinary/images.router';
 import activitiesTaskRouter from '../modules/activitiesTask/activitiesTask.router';
+import gymCenterRouter from '../modules/gymCenters/gymCenter.router';
 
 const apis = express.Router();
 
@@ -53,6 +54,10 @@ const defaultRoutes = [
   {
     path: '/activities',
     route: activitiesTaskRouter,
+  },
+  {
+    path: '/gymCenters',
+    route: gymCenterRouter,
   },
 ];
 

@@ -22,7 +22,7 @@ const ProgramSchema = new mongoose.Schema<IProgram>(
       default: Date.now,
     },
     category: { type: [String] },
-      teachingStyle: { type: [String] },
+    teachingStyle: { type: [String] },
     responsibleEmployees: [{ type: Schema.Types.ObjectId, ref: 'accounts' }],
 
     status: {
