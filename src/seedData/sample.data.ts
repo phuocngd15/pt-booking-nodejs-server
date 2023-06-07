@@ -187,20 +187,20 @@ export const serviceProgramsSeedingData: Partial<IProgram>[] = [
 
 export const activitiesSeedingData: Partial<IActivity>[] = [
   {
-    name: 'squat',
-    des: 'basic squat',
-    level: 'basic',
-    sets: 2,
-    reps: 12,
+    activityName: 'squat',
+    activityDes: 'basic squat',
+    activityLevel: 'basic',
+    activitySets: 2,
+    activityReps: 12,
     imageDemo:
       'https://d31oxp44ddzkyk.cloudfront.net/source/exercise_img/0/39ce1cd8450e4e2aab7afd6be34d740e.gif',
   },
   {
-    name: 'squat',
-    des: 'medium squat',
-    level: 'basic',
-    sets: 2,
-    reps: 12,
+    activityName: 'squat',
+    activityDes: 'medium squat',
+    activityLevel: 'basic',
+    activitySets: 2,
+    activityReps: 12,
     imageDemo:
       'https://d31oxp44ddzkyk.cloudfront.net/source/exercise_img/0/39ce1cd8450e4e2aab7afd6be34d740e.gif',
   },

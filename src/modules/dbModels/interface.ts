@@ -11,21 +11,34 @@ export interface IAccount extends Document {
   profile: mongoose.Types.ObjectId;
   profileModel: 'users' | 'trainers';
 }
-
+//push up: image demo : https://d31oxp44ddzkyk.cloudfront.net/source/exercise_img/0/57ad64013c0146eb964153e3aa40e590.gif
 export interface IActivity {
   _id: mongoose.Types.ObjectId;
-  name: string;
-  des: string;
-  reps: number;
-  sets: number;
-  level?: string;
+  activityName: string;
+  activityDes: string;
+  activityReps: number;
+  activitySets: number;
+  activityLevel?: string;
   createdAt?: Date;
   completeAt?: Date;
   duration?: string;
   completedReps?: string;
   user: IUser['_id'];
   createByTrainer: ITrainer['_id'];
-  imageDemo?: string;
+  imageDemo?: string; //reference Coros app
+  state: string;
+}
+export interface IActivityTasks {
+  _id: mongoose.Types.ObjectId;
+
+  createdAt?: Date;
+  completeAt?: Date;
+  deadlineDay?: Date;
+  duration?: string;
+  completedReps?: string;
+  user: IUser['_id'];
+  createByTrainer: ITrainer['_id'];
+  activityInfo: IActivity['_id'];
   state: string;
 }
 

@@ -26,7 +26,7 @@ import ActivitiesTaskModel, {
 import GymCentersModel, {
   collectionName as collectionGymCenter,
 } from '../modules/dbModels/gymCenters.model';
-
+import ActivitiesModel from '../modules/dbModels/activities.model'
 async function removeAllDataFromCollection(collectionName: string): Promise<void> {
   try {
     await mongoose.connection.db.collection(collectionName).deleteMany({});
@@ -38,49 +38,50 @@ async function removeAllDataFromCollection(collectionName: string): Promise<void
 
 export const SeedingData = async () => {
   try {
-    await removeAllDataFromCollection(collectionAccount);
-    await removeAllDataFromCollection(collectionTrainer);
-    await removeAllDataFromCollection(collectionProgram);
-    await removeAllDataFromCollection(collectionSession);
-    await removeAllDataFromCollection(collectionUser);
-    await removeAllDataFromCollection(collectionActivities);
-    await removeAllDataFromCollection('resettokens');
-    await removeAllDataFromCollection(collectionGymCenter);
+    // await removeAllDataFromCollection(collectionAccount);
+    // await removeAllDataFromCollection(collectionTrainer);
+    // await removeAllDataFromCollection(collectionProgram);
+    // await removeAllDataFromCollection(collectionSession);
+    // await removeAllDataFromCollection(collectionUser);
+    // await removeAllDataFromCollection(collectionActivities);
+    // await removeAllDataFromCollection('resettokens');
+    // await removeAllDataFromCollection(collectionGymCenter);
 
-    const users = await UsersModel.insertMany(userSeedingData);
-    const trainers = await TrainersModel.insertMany(trainerSeedingData);
-
-    accountSeedingData[2].profile = users[0]._id; // customer account
-    accountSeedingData[2].profileModel = 'users'; // customer account
-    accountSeedingData[1].profile = trainers[2]._id; // trainer account
-    accountSeedingData[1].profileModel = 'trainers'; // trainer account
-    //add 3 account
-    const accounts = await AccountModel.insertMany(accountSeedingData);
-
-    // complete info trainer
-    const dataTrainer1 = accounts[1];
-    trainerSeedingData[0].account = dataTrainer1._id;
-    trainerSeedingData[0].uuid = `${dataTrainer1._id}`;
-    serviceProgramsSeedingData[0].responsibleEmployees.push(dataTrainer1._id);
-
-    // SessionsAbleMockData.forEach((e) => {
-    //   e.trainerUUID = trainerSeedingData[0].uuid;
-    // });
-
-    //userSeedingData[0].account = accounts[2].id;
-
-    await ProgramModel.insertMany(serviceProgramsSeedingData);
-
-    // add activities to user
-    activitiesSeedingData[0].user = users[0].id;
-    activitiesSeedingData[1].user = users[0].id;
-    // who Trainer create activities for user
-    activitiesSeedingData[0].createByTrainer = dataTrainer1.id;
-    activitiesSeedingData[1].createByTrainer = dataTrainer1.id;
-
-    await ActivitiesTaskModel.insertMany(activitiesSeedingData);
-
-    await GymCentersModel.insertMany(GymCentersSeedingData);
+    // const users = await UsersModel.insertMany(userSeedingData);
+    // const trainers = await TrainersModel.insertMany(trainerSeedingData);
+    //
+    // accountSeedingData[2].profile = users[0]._id; // customer account
+    // accountSeedingData[2].profileModel = 'users'; // customer account
+    // accountSeedingData[1].profile = trainers[2]._id; // trainer account
+    // accountSeedingData[1].profileModel = 'trainers'; // trainer account
+    // //add 3 account
+    // const accounts = await AccountModel.insertMany(accountSeedingData);
+    //
+    // // complete info trainer
+    // const dataTrainer1 = accounts[1];
+    // trainerSeedingData[0].account = dataTrainer1._id;
+    // trainerSeedingData[0].uuid = `${dataTrainer1._id}`;
+    // serviceProgramsSeedingData[0].responsibleEmployees.push(dataTrainer1._id);
+    //
+    // // SessionsAbleMockData.forEach((e) => {
+    // //   e.trainerUUID = trainerSeedingData[0].uuid;
+    // // });
+    //
+    // //userSeedingData[0].account = accounts[2].id;
+    //
+    // await ProgramModel.insertMany(serviceProgramsSeedingData);
+    //
+    // // add activities to user
+    // activitiesSeedingData[0].user = users[0].id;
+    // activitiesSeedingData[1].user = users[0].id;
+    // // who Trainer create activities for user
+    // activitiesSeedingData[0].createByTrainer = dataTrainer1.id;
+    // activitiesSeedingData[1].createByTrainer = dataTrainer1.id;
+    //
+    // await ActivitiesTaskModel.insertMany();
+    //
+    // await GymCentersModel.insertMany(GymCentersSeedingData);
+    await ActivitiesModel.insertMany(activitiesSeedingData);
 
     logger.info('Data seeded successfully');
   } catch (e) {

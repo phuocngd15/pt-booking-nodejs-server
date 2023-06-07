@@ -9,8 +9,9 @@ import sessionRouter from '../modules/sessionsBK/session.router';
 import mailRouter from '../modules/mail/mail.router';
 import authRouters from '../modules/authentication/auth.router';
 import imagesRouter from '../modules/cloudinary/images.router';
-import activitiesTaskRouter from '../modules/activitiesTask/activitiesTask.router';
 import gymCenterRouter from '../modules/gymCenters/gymCenter.router';
+import activitiesRouter from "../modules/activities/activities.router";
+import activitiesTasksRouter from "../modules/activitiesTasks/activityTask.router";
 
 const apis = express.Router();
 
@@ -53,7 +54,11 @@ const defaultRoutes = [
   },
   {
     path: '/activities',
-    route: activitiesTaskRouter,
+    route: activitiesRouter,
+  },
+  {
+    path: '/activitiesTasks',
+    route: activitiesTasksRouter,
   },
   {
     path: '/gymCenters',

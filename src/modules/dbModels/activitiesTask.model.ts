@@ -1,18 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
-import { IActivity } from './interface';
+import {IActivityTasks} from './interface';
 //state of Activity: 1: new, 2:done, 3:failed
-const activitiesTaskSchema = new Schema<IActivity>({
-  _id: mongoose.Types.ObjectId,
-  name: String,
-  des: String,
-  reps: Number,
-  sets: Number,
-  state: { type: String, default: '1' },
-  completedReps: String,
-  level: {
-    type: String,
-    default: 'basic',
-  },
+const activitiesTaskSchema = new Schema<IActivityTasks>({
   createdAt: {
     type: Date,
     default: Date.now,
@@ -20,13 +9,19 @@ const activitiesTaskSchema = new Schema<IActivity>({
   completeAt: {
     type: Date,
   },
+  deadlineDay: {
+    type: Date,
+  },
   duration: {
     type: String,
     default: '',
   },
+  state: { type: String, default: '1' },
+  completedReps: String,
+
   user: { type: Schema.Types.ObjectId, ref: 'users' },
+  activityInfo: { type: Schema.Types.ObjectId, ref: 'activities' },
   createByTrainer: { type: Schema.Types.ObjectId, ref: 'trainers' },
-  imageDemo: String,
 });
 export const collectionName = 'activitiesTasks';
-export default mongoose.model<IActivity>(collectionName, activitiesTaskSchema, collectionName);
+export default mongoose.model<IActivityTasks>(collectionName, activitiesTaskSchema, collectionName);

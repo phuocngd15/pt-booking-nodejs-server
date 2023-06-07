@@ -102,6 +102,10 @@ const adminRoute = [
     path: '/adBooking',
     id: 'adBookingsView',
   },
+  {
+    path: '/exercise-Management',
+    id: 'ExerciseManagement',
+  },
 
 ];
 const trainerRoute = [
