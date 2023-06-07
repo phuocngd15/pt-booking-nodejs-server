@@ -104,6 +104,7 @@ const addNewTrainer = async (req: Request, res: Response): Promise<void> => {
       username: dataForm.username,
       password: hashedPassword,
       profileModel: 'trainers',
+      power: 'trainer',
     });
 
     const newTrainerInfo = await createTrainer({
