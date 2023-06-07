@@ -5,7 +5,7 @@ const router = Router();
 
 router.get('/', gymCenterController.getAllGymCenters);
 router.get('/:id', gymCenterController.getGymCenter);
-router.post('/', gymCenterController.createGymCenter);
+router.post('/new', gymCenterController.createGymCenter);
 router.put('/:id', gymCenterController.updateGymCenter);
 router.delete('/:id', gymCenterController.deleteGymCenter);
 

@@ -95,9 +95,14 @@ const adminRoute = [
     id: 'AccountsManagement',
   },
   {
+    path: '/gymCenter-Management',
+    id: 'GymCenterManagement',
+  },
+  {
     path: '/adBooking',
     id: 'adBookingsView',
   },
+
 ];
 const trainerRoute = [
   {
